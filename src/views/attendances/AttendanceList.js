@@ -28,7 +28,7 @@ const AttendaceList = () => {
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>Employee List</strong>
+            <strong>Attendace List</strong>
           </CCardHeader>
           <CCardBody>
             <p className="text-medium-emphasis small">This table contains brances list.</p>

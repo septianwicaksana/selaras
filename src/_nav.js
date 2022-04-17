@@ -7,6 +7,7 @@ import {
   cilBriefcase,
   cilCalculator,
   cilCalendar,
+  cilCalendarCheck,
   cilChartPie,
   cilCursor,
   cilDrop,
@@ -23,6 +24,7 @@ import {
   cilSpeedometer,
   cilSpreadsheet,
   cilStar,
+  cilWallet,
 } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react-pro'
 
@@ -38,6 +40,40 @@ const _nav = [
     },
   },
   {
+    component: CNavTitle,
+    name: 'PENGAJUAN',
+  },
+
+  {
+    component: CNavItem,
+    name: 'Transaksi',
+    to: '/transactions',
+    icon: <CIcon icon={cilMoney} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Nasabah',
+    to: '/customers',
+    icon: <CIcon icon={cilPeople} customClassName="nav-icon" />,
+  },
+
+  {
+    component: CNavTitle,
+    name: 'SUMBER DAYA',
+  },
+  {
+    component: CNavItem,
+    name: 'Absensi',
+    to: '/attendances',
+    icon: <CIcon icon={cilCalendarCheck} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Karyawan',
+    to: '/employees',
+    icon: <CIcon icon={cilBriefcase} customClassName="nav-icon" />,
+  },
+  {
     component: CNavItem,
     name: 'Cabang',
     to: '/branches',
@@ -45,9 +81,13 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'Transaksi',
-    to: '/transactions',
-    icon: <CIcon icon={cilMoney} customClassName="nav-icon" />,
+    name: 'Kalender Libur',
+    to: '/holidays',
+    icon: <CIcon icon={cilCalendar} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavTitle,
+    name: 'KEUANGAN',
   },
   {
     component: CNavItem,
@@ -63,21 +103,9 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'Nasabah',
-    to: '/customers',
-    icon: <CIcon icon={cilPeople} customClassName="nav-icon" />,
-  },
-  {
-    component: CNavItem,
-    name: 'Karyawan',
-    to: '/employees',
-    icon: <CIcon icon={cilBriefcase} customClassName="nav-icon" />,
-  },
-  {
-    component: CNavItem,
-    name: 'Absensi',
-    to: '/attendaces',
-    icon: <CIcon icon={cilCalendar} customClassName="nav-icon" />,
+    name: 'Dompet',
+    to: '/wallets',
+    icon: <CIcon icon={cilWallet} customClassName="nav-icon" />,
   },
   {
     component: CNavTitle,

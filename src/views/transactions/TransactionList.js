@@ -28,7 +28,7 @@ const TransactionList = () => {
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>Transaction List</strong>
+            <strong>List Transaksi</strong>
           </CCardHeader>
           <CCardBody>
             <p className="text-medium-emphasis small">This table contains brances list.</p>
