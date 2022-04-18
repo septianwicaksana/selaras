@@ -102,7 +102,7 @@ const EmployeeList = () => {
                       <CRow className=" px-2" xs={{ gutterX: 1, gutterY: 2 }}>
                         <CCol className="align-items-center">
                           <CButton
-                            href={`/#/branches/detail-branch/${item.id}`}
+                            href={`/#/employees/detail-employee/${item.id}`}
                             color={'info'}
                             size="sm"
                             key={1}
@@ -112,7 +112,7 @@ const EmployeeList = () => {
                         </CCol>
                         <CCol className="align-items-center">
                           <CButton
-                            href={`/#/branches/edit-branch/${item.id}`}
+                            href={`/#/employees/edit-employee/${item.id}`}
                             color={'secondary'}
                             size="sm"
                             key={2}
