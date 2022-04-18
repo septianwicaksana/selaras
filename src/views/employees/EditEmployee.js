@@ -22,7 +22,7 @@ import {
 } from 'src/storages/employeesSlice'
 import currency from 'currency.js'
 import { unwrapResult } from '@reduxjs/toolkit'
-import { clearCreateBranchStatus, createBranch, fetchBranch } from 'src/storages/branchsSlice'
+import { fetchBranch } from 'src/storages/branchsSlice'
 const EditEmployee = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -58,7 +58,6 @@ const EditEmployee = () => {
       ktp: employeeById.ktp,
       npwp: employeeById.npwp,
       phone: employeeById.phone,
-      address: employeeById.address,
       pob: employeeById.pob,
       dob: employeeById.dob,
       date: employeeById.date,
@@ -71,6 +70,7 @@ const EditEmployee = () => {
   const onSubmit = async (data) => {
     if (canSave)
       try {
+        console.log(data)
         data.id = id
         const resultAction = await dispatch(updateEmployee(data))
         unwrapResult(resultAction)
@@ -106,7 +106,7 @@ const EditEmployee = () => {
                 <CFormLabel htmlFor="namaCabang">Cabang</CFormLabel>
                 <CFormSelect aria-label="namaCabang" {...register('branch_id')}>
                   {branchList.map((data) => (
-                    <option value={data.id} key={data.id}>
+                    <option value={data.branch_id} key={data.branch_id}>
                       {data.name}
                     </option>
                   ))}
