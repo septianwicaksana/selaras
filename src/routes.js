@@ -205,7 +205,7 @@ const routes = [
   { path: '/customers/edit-customer', name: 'Edit Customer', element: EditCustomer },
   { path: '/employees', name: 'Employees', element: EmployeeList },
   { path: '/employees/create-employee', name: 'Create Employee', element: CreateEmployee },
-  { path: '/employees/detail-employee', name: 'Detail Employee', element: DetailEmployee },
+  { path: '/employees/detail-employee/:id', name: 'Detail Employee', element: DetailEmployee },
   { path: '/employees/edit-employee/:id', name: 'Edit Employee', element: EditEmployee },
   { path: '/attendances', name: 'Attendaces', element: AttendanceList },
   { path: '/attendances/create-attendance', name: 'Create Attendance', element: CreateAttendance },

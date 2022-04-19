@@ -106,7 +106,7 @@ const EditEmployee = () => {
                 <CFormLabel htmlFor="namaCabang">Cabang</CFormLabel>
                 <CFormSelect aria-label="namaCabang" {...register('branch_id')}>
                   {branchList.map((data) => (
-                    <option value={data.branch_id} key={data.branch_id}>
+                    <option value={data.id} key={data.id}>
                       {data.name}
                     </option>
                   ))}
