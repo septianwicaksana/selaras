@@ -40,12 +40,7 @@ const EditEmployee = () => {
     }
   }, [branchListStatus, dispatch])
 
-  const createBranchStatus = useSelector((state) => state.branchs.createBranchStatus)
-  //   const canSave = createBranchStatus === 'idle'
-
   const { register, handleSubmit, reset } = useForm()
-
-  const IDR = (value) => currency(value, { symbol: 'Rp. ', precision: 2 })
 
   useEffect(() => {
     if (employeeByIdStatus === 'idle') {
