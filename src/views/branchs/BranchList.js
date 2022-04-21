@@ -7,7 +7,6 @@ import { fetchBranch, deleteBranch, clearBranchByIdStatus } from 'src/storages/b
 
 const BranchList = () => {
   const dispatch = useDispatch()
-  // const [details, setDetails] = useState([])
   const branchList = useSelector((state) => state.branchs.branchList)
   const branchListStatus = useSelector((state) => state.branchs.branchListStatus)
   const branchByIdStatus = useSelector((state) => state.branchs.branchByIdStatus)
@@ -31,40 +30,10 @@ const BranchList = () => {
     },
     { key: 'address', _style: { width: '20%' } },
     { key: 'amount', _style: { width: '10%' } },
-    // {
-    //   key: 'show_details',
-    //   label: '',
-    //   _style: { width: '1%' },
-    //   filter: false,
-    //   sorter: false,
-    // },
     { key: 'created_at', filter: false, sorter: false },
     { key: 'action', filter: false, sorter: false },
   ]
-  // const getBadge = (status) => {
-  //   switch (status) {
-  //     case 'Active':
-  //       return 'success'
-  //     case 'Inactive':
-  //       return 'secondary'
-  //     case 'Pending':
-  //       return 'warning'
-  //     case 'Banned':
-  //       return 'danger'
-  //     default:
-  //       return 'primary'
-  //   }
-  // }
-  // const toggleDetails = (index) => {
-  //   const position = details.indexOf(index)
-  //   let newDetails = details.slice()
-  //   if (position !== -1) {
-  //     newDetails.splice(position, 1)
-  //   } else {
-  //     newDetails = [...details, index]
-  //   }
-  //   setDetails(newDetails)
-  // }
+
   return (
     <CRow>
       <div className="d-flex  justify-content-end  mb-3">
