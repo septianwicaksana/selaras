@@ -11,6 +11,7 @@ import paymentsReducer from './paymentsSlice'
 import relativesReducer from './relativesSlice'
 import transactionsReducer from './transactionsSlice'
 import customersReducer from './customersSlice'
+import holidaysReducer from './holidaysSlice'
 
 export default configureStore({
   reducer: {
@@ -26,5 +27,6 @@ export default configureStore({
     relatives: relativesReducer,
     transactions: transactionsReducer,
     customers: customersReducer,
+    holidays: holidaysReducer,
   },
 })

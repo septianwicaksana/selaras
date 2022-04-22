@@ -17,7 +17,7 @@ import {
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { unwrapResult } from '@reduxjs/toolkit'
-import { clearCreateBranchStatus, createBranch, fetchBranch } from 'src/storages/branchsSlice'
+import { clearCreateBranchStatus, fetchBranch } from 'src/storages/branchsSlice'
 import { createEmployee } from 'src/storages/employeesSlice'
 
 function CreateEmployee() {

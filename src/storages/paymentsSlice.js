@@ -2,171 +2,165 @@ import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit'
 import { supabase } from '../supabase'
 
 const initialState = {
-  attendanceList: [],
-  attendanceListStatus: 'idle',
-  attendanceListError: null,
-  attendanceById: [],
-  attendanceByIdStatus: 'idle',
-  attendanceByIdError: null,
-  createAttendance: [],
-  createAttendanceStatus: 'idle',
-  createAttendanceError: null,
-  attendanceDelete: [],
-  attendanceDeleteStatus: 'idle',
-  attendanceDeleteError: null,
-  attendanceUpdate: [],
-  attendanceUpdateStatus: 'idle',
-  attendanceUpdateError: null,
+  paymentList: [],
+  paymentListStatus: 'idle',
+  paymentListError: null,
+  paymentById: [],
+  paymentByIdStatus: 'idle',
+  paymentByIdError: null,
+  createPayment: [],
+  createPaymentStatus: 'idle',
+  createPaymentError: null,
+  paymentDelete: [],
+  paymentDeleteStatus: 'idle',
+  paymentDeleteError: null,
+  paymentUpdate: [],
+  paymentUpdateStatus: 'idle',
+  paymentUpdateError: null,
 }
 
-export const fetchAttendance = createAsyncThunk('attendances/fetchAttendance', async () => {
-  const response = await supabase.from('attendances').select()
+export const fetchPayment = createAsyncThunk('payments/fetchPayment', async () => {
+  const response = await supabase.from('payments').select()
   return response
 })
 
-export const fetchAttendanceById = createAsyncThunk(
-  'attendances/fetchAttendanceById',
-  async (id) => {
-    const response = await supabase.from('attendances').select('*').eq('id', id)
-    return response
-  },
-)
-
-export const createAttendance = createAsyncThunk('attendances/createAttendance', async (data) => {
-  const response = await supabase.from('attendances').insert([data])
+export const fetchPaymentById = createAsyncThunk('payments/fetchPaymentById', async (id) => {
+  const response = await supabase.from('payments').select('*').eq('id', id)
   return response
 })
 
-export const deleteAttendance = createAsyncThunk('attendances/deleteAttendance', async (id) => {
-  await supabase.from('attendances').delete().match({ id: id })
+export const createPayment = createAsyncThunk('payments/createPayment', async (data) => {
+  const response = await supabase.from('payments').insert([data])
+  return response
+})
+
+export const deletePayment = createAsyncThunk('payments/deletePayment', async (id) => {
+  await supabase.from('payments').delete().match({ id: id })
   return id
 })
 
-export const updateAttendance = createAsyncThunk(
-  'attendances/updateAttendance',
-  async (updatedData) => {
-    const { data, error } = await supabase
-      .from('attendances')
-      .update({
-        address: updatedData.address, //not-null
-        branch_id: updatedData.branch_id,
-        name: updatedData.name,
-        ktp: updatedData.ktp,
-        npwp: updatedData.npwp,
-        phone: updatedData.phone,
-        pob: updatedData.pob,
-        dob: updatedData.dob,
-        date: updatedData.date,
-        position: updatedData.position,
-      })
-      .eq('id', updatedData.id)
-    if (error) {
-      alert(error.message)
-    }
-    return data
-  },
-)
+export const updatePayment = createAsyncThunk('payments/updatePayment', async (updatedData) => {
+  const { data, error } = await supabase
+    .from('payments')
+    .update({
+      address: updatedData.address, //not-null
+      branch_id: updatedData.branch_id,
+      name: updatedData.name,
+      ktp: updatedData.ktp,
+      npwp: updatedData.npwp,
+      phone: updatedData.phone,
+      pob: updatedData.pob,
+      dob: updatedData.dob,
+      date: updatedData.date,
+      position: updatedData.position,
+    })
+    .eq('id', updatedData.id)
+  if (error) {
+    alert(error.message)
+  }
+  return data
+})
 
-const attendancesSlice = createSlice({
-  name: 'attendances',
+const paymentsSlice = createSlice({
+  name: 'payments',
   initialState,
   reducers: {
-    clearAttendanceList: (state) => {
-      state.attendanceList = []
+    clearPaymentList: (state) => {
+      state.paymentList = []
     },
-    clearAttendanceListStatus: (state) => {
-      state.attendanceListStatus = 'idle'
+    clearPaymentListStatus: (state) => {
+      state.paymentListStatus = 'idle'
     },
-    clearAttendanceByIdData: (state) => {
-      state.attendanceById = []
+    clearPaymentByIdData: (state) => {
+      state.paymentById = []
     },
-    clearAttendanceByIdStatus: (state) => {
-      state.attendanceByIdStatus = 'idle'
+    clearPaymentByIdStatus: (state) => {
+      state.paymentByIdStatus = 'idle'
     },
-    clearAttendanceDeleteStatus: (state) => {
-      state.attendanceDeleteStatus = 'idle'
+    clearPaymentDeleteStatus: (state) => {
+      state.paymentDeleteStatus = 'idle'
     },
-    clearCreateAttendanceStatus: (state) => {
-      state.createAttendanceStatus = 'idle'
+    clearCreatePaymentStatus: (state) => {
+      state.createPaymentStatus = 'idle'
     },
-    clearAttendanceUpdateStatus: (state) => {
-      state.attendanceUpdateStatus = 'idle'
+    clearPaymentUpdateStatus: (state) => {
+      state.paymentUpdateStatus = 'idle'
     },
     clearIdStatus: (state) => {
       state.idStatus = 'idle'
     },
   },
   extraReducers: {
-    [fetchAttendance.pending]: (state) => {
-      state.attendanceListStatus = 'loading'
+    [fetchPayment.pending]: (state) => {
+      state.paymentListStatus = 'loading'
     },
-    [fetchAttendance.fulfilled]: (state, action) => {
-      state.attendanceListStatus = 'succeeded'
-      state.attendanceList = action.payload.data
+    [fetchPayment.fulfilled]: (state, action) => {
+      state.paymentListStatus = 'succeeded'
+      state.paymentList = action.payload.data
     },
-    [fetchAttendance.rejected]: (state, action) => {
-      state.attendanceListStatus = 'failed'
-      state.attendanceListError = action.error.message
+    [fetchPayment.rejected]: (state, action) => {
+      state.paymentListStatus = 'failed'
+      state.paymentListError = action.error.message
     },
-    [fetchAttendanceById.pending]: (state) => {
-      state.attendanceByIdStatus = 'loading'
+    [fetchPaymentById.pending]: (state) => {
+      state.paymentByIdStatus = 'loading'
     },
-    [fetchAttendanceById.fulfilled]: (state, action) => {
-      state.attendanceByIdStatus = 'succeeded'
-      state.attendanceById = action.payload.data[0]
+    [fetchPaymentById.fulfilled]: (state, action) => {
+      state.paymentByIdStatus = 'succeeded'
+      state.paymentById = action.payload.data[0]
     },
-    [fetchAttendanceById.rejected]: (state, action) => {
-      state.attendanceByIdStatus = 'failed'
-      state.attendanceByIdError = action.error.message
+    [fetchPaymentById.rejected]: (state, action) => {
+      state.paymentByIdStatus = 'failed'
+      state.paymentByIdError = action.error.message
     },
-    [createAttendance.pending]: (state) => {
-      state.createAttendanceStatus = 'loading'
+    [createPayment.pending]: (state) => {
+      state.createPaymentStatus = 'loading'
     },
-    [createAttendance.fulfilled]: (state, action) => {
-      state.createAttendanceStatus = 'succeeded'
-      state.attendanceList = state.attendanceList.concat(action.payload.data[0])
+    [createPayment.fulfilled]: (state, action) => {
+      state.createPaymentStatus = 'succeeded'
+      state.paymentList = state.paymentList.concat(action.payload.data[0])
     },
-    [createAttendance.rejected]: (state, action) => {
-      state.createAttendanceStatus = 'failed'
-      state.createAttendanceError = action.error.message
+    [createPayment.rejected]: (state, action) => {
+      state.createPaymentStatus = 'failed'
+      state.createPaymentError = action.error.message
     },
-    [deleteAttendance.pending]: (state) => {
-      state.attendanceDeleteStatus = 'loading'
+    [deletePayment.pending]: (state) => {
+      state.paymentDeleteStatus = 'loading'
     },
-    [deleteAttendance.fulfilled]: (state, action) => {
-      state.attendanceDeleteStatus = 'succeeded'
-      state.attendanceDelete = action.payload.data
-      const array = current(state.attendanceList)
+    [deletePayment.fulfilled]: (state, action) => {
+      state.paymentDeleteStatus = 'succeeded'
+      state.paymentDelete = action.payload.data
+      const array = current(state.paymentList)
       // eslint-disable-next-line eqeqeq
       const temp = array.filter((element) => element.id != action.payload)
-      state.attendanceList = temp
+      state.paymentList = temp
     },
-    [deleteAttendance.rejected]: (state, action) => {
-      state.attendanceDeleteStatus = 'failed'
-      state.attendanceDeleteError = action.error.message
+    [deletePayment.rejected]: (state, action) => {
+      state.paymentDeleteStatus = 'failed'
+      state.paymentDeleteError = action.error.message
     },
-    [updateAttendance.pending]: (state) => {
-      state.attendanceUpdateStatus = 'loading'
+    [updatePayment.pending]: (state) => {
+      state.paymentUpdateStatus = 'loading'
     },
-    [updateAttendance.fulfilled]: (state, action) => {
-      state.attendanceUpdateStatus = 'succeeded'
-      state.attendanceUpdate = action.payload.data
+    [updatePayment.fulfilled]: (state, action) => {
+      state.paymentUpdateStatus = 'succeeded'
+      state.paymentUpdate = action.payload.data
     },
-    [updateAttendance.rejected]: (state, action) => {
-      state.attendanceUpdateStatus = 'failed'
-      state.attendanceUpdateError = action.error.message
+    [updatePayment.rejected]: (state, action) => {
+      state.paymentUpdateStatus = 'failed'
+      state.paymentUpdateError = action.error.message
     },
   },
 })
 
 export const {
-  clearAttendanceList,
-  clearAttendanceByIdData,
-  clearAttendanceByIdStatus,
-  clearAttendanceDeleteStatus,
-  clearCreateAttendanceStatus,
-  clearAttendanceUpdateStatus,
-  clearAttendanceListStatus,
-} = attendancesSlice.actions
+  clearPaymentList,
+  clearPaymentByIdData,
+  clearPaymentByIdStatus,
+  clearPaymentDeleteStatus,
+  clearCreatePaymentStatus,
+  clearPaymentUpdateStatus,
+  clearPaymentListStatus,
+} = paymentsSlice.actions
 
-export default attendancesSlice.reducer
+export default paymentsSlice.reducer

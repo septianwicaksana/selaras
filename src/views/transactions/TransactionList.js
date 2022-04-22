@@ -1,71 +1,123 @@
-import React from 'react'
-import {
-  CButton,
-  CCard,
-  CCardBody,
-  CCardHeader,
-  CCol,
-  CRow,
-  CTable,
-  CTableBody,
-  CTableDataCell,
-  CTableHead,
-  CTableHeaderCell,
-  CTableRow,
-} from '@coreui/react-pro'
+import React, { useEffect } from 'react'
+import { CButton, CCard, CCardBody, CCardHeader, CCol, CRow, CSmartTable } from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
-import { cilPencil, cilPlus, cilSearch, cilTrash } from '@coreui/icons'
+import { cilArrowThickBottom, cilPencil, cilPlus, cilSearch, cilTrash } from '@coreui/icons'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  fetchTransaction,
+  deleteTransaction,
+  clearTransactionByIdStatus,
+} from 'src/storages/transactionsSlice'
 
 const TransactionList = () => {
+  const dispatch = useDispatch()
+  const transactionList = useSelector((state) => state.transactions.transactionList)
+  const transactionListStatus = useSelector((state) => state.transactions.transactionListStatus)
+  const transactionByIdStatus = useSelector((state) => state.transactions.transactionByIdStatus)
+
+  useEffect(() => {
+    if (transactionListStatus === 'idle') {
+      dispatch(fetchTransaction())
+    }
+  }, [transactionListStatus, dispatch])
+
+  useEffect(() => {
+    if (transactionByIdStatus === 'succeeded') {
+      dispatch(clearTransactionByIdStatus())
+    }
+  }, [transactionByIdStatus, dispatch])
+
+  const columns = [
+    {
+      key: 'branch_id',
+      _style: { width: '40%' },
+    },
+    { key: 'customer_id', _style: { width: '20%' } },
+    { key: 'amount', _style: { width: '10%' } },
+    { key: 'paid_amount' },
+    { key: 'remaining_payment' },
+    { key: 'action', filter: false, sorter: false },
+  ]
+
   return (
     <CRow>
       <div className="d-flex  justify-content-end  mb-3">
-        <CButton color={'primary'} key={1}>
+        <CButton href="/#/transactions/create-transaction" color={'primary'} key={1}>
           <CIcon icon={cilPlus} className="me-2" />
           New
         </CButton>
       </div>
-      <CCol xs={12}>
-        <CCard className="mb-4">
+      <CCol>
+        <CCard className="mb-5">
           <CCardHeader>
-            <strong>List Transaksi</strong>
+            <strong>List Transaction</strong>
           </CCardHeader>
-          <CCardBody>
-            <p className="text-medium-emphasis small">This table contains brances list.</p>
-            <CTable hover>
-              <CTableHead>
-                <CTableRow>
-                  <CTableHeaderCell scope="col">ID</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">CUSTOMER</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">DATE</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">AMOUNT</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">STATUS</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">ACTION</CTableHeaderCell>
-                </CTableRow>
-              </CTableHead>
-              <CTableBody>
-                <CTableRow>
-                  <CTableDataCell>654882164</CTableDataCell>
-                  <CTableDataCell>Mark</CTableDataCell>
-                  <CTableDataCell>16 September 2022</CTableDataCell>
-                  <CTableDataCell>Rp. 7.000.000</CTableDataCell>
-                  <CTableDataCell>SETTLED</CTableDataCell>
-                  <CTableDataCell>
-                    <div className="d-flex justify-content-between gap-2">
-                      <CButton color={'info'} size="sm" key={1}>
-                        <CIcon icon={cilSearch} />
-                      </CButton>
-                      <CButton color={'secondary'} size="sm" key={1}>
-                        <CIcon icon={cilPencil} />
-                      </CButton>
-                      <CButton color={'danger'} size="sm" key={1}>
-                        <CIcon icon={cilTrash} />
-                      </CButton>
-                    </div>
-                  </CTableDataCell>
-                </CTableRow>
-              </CTableBody>
-            </CTable>
+          <CCardBody className="w-100 overflow-auto">
+            <CSmartTable
+              sorterValue={{ column: 'created_at', state: 'desc' }}
+              clickableRows
+              tableProps={{
+                striped: false,
+                hover: true,
+              }}
+              activePage={3}
+              items={transactionList}
+              columns={columns}
+              columnFilter
+              tableFilter
+              cleaner
+              itemsPerPageSelect
+              itemsPerPage={5}
+              columnSorter
+              pagination
+              scopedColumns={{
+                action: (item) => {
+                  return (
+                    <td>
+                      <CRow className=" px-2" xs={{ gutterX: 1, gutterY: 2 }}>
+                        <CCol className="align-items-center">
+                          <CButton
+                            href={`/#/transactiones/detail-transaction/${item.id}`}
+                            color={'info'}
+                            size="sm"
+                            key={1}
+                          >
+                            <CIcon icon={cilSearch} />
+                          </CButton>
+                        </CCol>
+                        <CCol className="align-items-center">
+                          <CButton
+                            href={`/#/transactiones/edit-transaction/${item.id}`}
+                            color={'secondary'}
+                            size="sm"
+                            key={2}
+                          >
+                            <CIcon icon={cilPencil} />
+                          </CButton>
+                        </CCol>
+                        <CCol className="align-items-center">
+                          <CButton
+                            onClick={() => {
+                              dispatch(deleteTransaction(item.id))
+                            }}
+                            color={'danger'}
+                            size="sm"
+                            key={3}
+                          >
+                            <CIcon icon={cilTrash} />
+                          </CButton>
+                        </CCol>
+                        <CCol className="align-items-center">
+                          <CButton color={'primary'} size="sm" key={1}>
+                            <CIcon icon={cilArrowThickBottom} />
+                          </CButton>
+                        </CCol>
+                      </CRow>
+                    </td>
+                  )
+                },
+              }}
+            />
           </CCardBody>
         </CCard>
       </CCol>

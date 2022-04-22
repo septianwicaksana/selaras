@@ -3,25 +3,25 @@ import { CButton, CCard, CCardBody, CCardHeader, CCol, CRow, CSmartTable } from 
 import CIcon from '@coreui/icons-react'
 import { cilArrowThickBottom, cilPencil, cilPlus, cilSearch, cilTrash } from '@coreui/icons'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchIncome, deleteIncome, clearIncomeByIdStatus } from 'src/storages/incomesSlice'
+import { fetchPayment, deletePayment, clearPaymentByIdStatus } from 'src/storages/paymentsSlice'
 
-const IncomeList = () => {
+const PaymentList = () => {
   const dispatch = useDispatch()
-  const incomeList = useSelector((state) => state.incomes.incomeList)
-  const incomeListStatus = useSelector((state) => state.incomes.incomeListStatus)
-  const incomeByIdStatus = useSelector((state) => state.incomes.incomeByIdStatus)
+  const paymentList = useSelector((state) => state.payments.paymentList)
+  const paymentListStatus = useSelector((state) => state.payments.paymentListStatus)
+  const paymentByIdStatus = useSelector((state) => state.payments.paymentByIdStatus)
 
   useEffect(() => {
-    if (incomeListStatus === 'idle') {
-      dispatch(fetchIncome())
+    if (paymentListStatus === 'idle') {
+      dispatch(fetchPayment())
     }
-  }, [incomeListStatus, dispatch])
+  }, [paymentListStatus, dispatch])
 
   useEffect(() => {
-    if (incomeByIdStatus === 'succeeded') {
-      dispatch(clearIncomeByIdStatus())
+    if (paymentByIdStatus === 'succeeded') {
+      dispatch(clearPaymentByIdStatus())
     }
-  }, [incomeByIdStatus, dispatch])
+  }, [paymentByIdStatus, dispatch])
 
   const columns = [
     {
@@ -37,7 +37,7 @@ const IncomeList = () => {
   return (
     <CRow>
       <div className="d-flex  justify-content-end  mb-3">
-        <CButton href="/#/incomees/create-income" color={'primary'} key={1}>
+        <CButton href="/#/paymentes/create-payment" color={'primary'} key={1}>
           <CIcon icon={cilPlus} className="me-2" />
           New
         </CButton>
@@ -45,7 +45,7 @@ const IncomeList = () => {
       <CCol>
         <CCard className="mb-5">
           <CCardHeader>
-            <strong>List Pemasukan</strong>
+            <strong>List Absen</strong>
           </CCardHeader>
           <CCardBody className="w-100 overflow-auto">
             <CSmartTable
@@ -56,7 +56,7 @@ const IncomeList = () => {
                 hover: true,
               }}
               activePage={3}
-              items={incomeList}
+              items={paymentList}
               columns={columns}
               columnFilter
               tableFilter
@@ -72,7 +72,7 @@ const IncomeList = () => {
                       <CRow className=" px-2" xs={{ gutterX: 1, gutterY: 2 }}>
                         <CCol className="align-items-center">
                           <CButton
-                            href={`/#/incomees/detail-income/${item.id}`}
+                            href={`/#/paymentes/detail-payment/${item.id}`}
                             color={'info'}
                             size="sm"
                             key={1}
@@ -82,7 +82,7 @@ const IncomeList = () => {
                         </CCol>
                         <CCol className="align-items-center">
                           <CButton
-                            href={`/#/incomees/edit-income/${item.id}`}
+                            href={`/#/paymentes/edit-payment/${item.id}`}
                             color={'secondary'}
                             size="sm"
                             key={2}
@@ -93,7 +93,7 @@ const IncomeList = () => {
                         <CCol className="align-items-center">
                           <CButton
                             onClick={() => {
-                              dispatch(deleteIncome(item.id))
+                              dispatch(deletePayment(item.id))
                             }}
                             color={'danger'}
                             size="sm"
@@ -120,4 +120,4 @@ const IncomeList = () => {
   )
 }
 
-export default IncomeList
+export default PaymentList

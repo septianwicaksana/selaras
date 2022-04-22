@@ -3,25 +3,25 @@ import { CButton, CCard, CCardBody, CCardHeader, CCol, CRow, CSmartTable } from 
 import CIcon from '@coreui/icons-react'
 import { cilArrowThickBottom, cilPencil, cilPlus, cilSearch, cilTrash } from '@coreui/icons'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchIncome, deleteIncome, clearIncomeByIdStatus } from 'src/storages/incomesSlice'
+import { fetchAccount, deleteAccount, clearAccountByIdStatus } from 'src/storages/accountsSlice'
 
-const IncomeList = () => {
+const AccountList = () => {
   const dispatch = useDispatch()
-  const incomeList = useSelector((state) => state.incomes.incomeList)
-  const incomeListStatus = useSelector((state) => state.incomes.incomeListStatus)
-  const incomeByIdStatus = useSelector((state) => state.incomes.incomeByIdStatus)
+  const accountList = useSelector((state) => state.accounts.accountList)
+  const accountListStatus = useSelector((state) => state.accounts.accountListStatus)
+  const accountByIdStatus = useSelector((state) => state.accounts.accountByIdStatus)
 
   useEffect(() => {
-    if (incomeListStatus === 'idle') {
-      dispatch(fetchIncome())
+    if (accountListStatus === 'idle') {
+      dispatch(fetchAccount())
     }
-  }, [incomeListStatus, dispatch])
+  }, [accountListStatus, dispatch])
 
   useEffect(() => {
-    if (incomeByIdStatus === 'succeeded') {
-      dispatch(clearIncomeByIdStatus())
+    if (accountByIdStatus === 'succeeded') {
+      dispatch(clearAccountByIdStatus())
     }
-  }, [incomeByIdStatus, dispatch])
+  }, [accountByIdStatus, dispatch])
 
   const columns = [
     {
@@ -37,7 +37,7 @@ const IncomeList = () => {
   return (
     <CRow>
       <div className="d-flex  justify-content-end  mb-3">
-        <CButton href="/#/incomees/create-income" color={'primary'} key={1}>
+        <CButton href="/#/accountes/create-account" color={'primary'} key={1}>
           <CIcon icon={cilPlus} className="me-2" />
           New
         </CButton>
@@ -45,7 +45,7 @@ const IncomeList = () => {
       <CCol>
         <CCard className="mb-5">
           <CCardHeader>
-            <strong>List Pemasukan</strong>
+            <strong>List Absen</strong>
           </CCardHeader>
           <CCardBody className="w-100 overflow-auto">
             <CSmartTable
@@ -56,7 +56,7 @@ const IncomeList = () => {
                 hover: true,
               }}
               activePage={3}
-              items={incomeList}
+              items={accountList}
               columns={columns}
               columnFilter
               tableFilter
@@ -72,7 +72,7 @@ const IncomeList = () => {
                       <CRow className=" px-2" xs={{ gutterX: 1, gutterY: 2 }}>
                         <CCol className="align-items-center">
                           <CButton
-                            href={`/#/incomees/detail-income/${item.id}`}
+                            href={`/#/accountes/detail-account/${item.id}`}
                             color={'info'}
                             size="sm"
                             key={1}
@@ -82,7 +82,7 @@ const IncomeList = () => {
                         </CCol>
                         <CCol className="align-items-center">
                           <CButton
-                            href={`/#/incomees/edit-income/${item.id}`}
+                            href={`/#/accountes/edit-account/${item.id}`}
                             color={'secondary'}
                             size="sm"
                             key={2}
@@ -93,7 +93,7 @@ const IncomeList = () => {
                         <CCol className="align-items-center">
                           <CButton
                             onClick={() => {
-                              dispatch(deleteIncome(item.id))
+                              dispatch(deleteAccount(item.id))
                             }}
                             color={'danger'}
                             size="sm"
@@ -111,6 +111,32 @@ const IncomeList = () => {
                     </td>
                   )
                 },
+                // show_details: (item) => {
+                //   return (
+                //     <td className="py-2">
+                //       <CButton
+                //         color="primary"
+                //         variant="outline"
+                //         shape="square"
+                //         size="sm"
+                //         onClick={() => {
+                //           toggleDetails(item.id)
+                //         }}
+                //       >
+                //         {details.includes(item.id) ? 'Hide' : 'Show'}
+                //       </CButton>
+                //     </td>
+                //   )
+                // },
+                // details: (item) => {
+                //   return (
+                //     <CCollapse visible={details.includes(item.id)}>
+                //       <CCardBody>
+                //         <h5>This for details</h5>
+                //       </CCardBody>
+                //     </CCollapse>
+                //   )
+                // },
               }}
             />
           </CCardBody>
@@ -120,4 +146,4 @@ const IncomeList = () => {
   )
 }
 
-export default IncomeList
+export default AccountList

@@ -82,7 +82,7 @@ const TransactionList = React.lazy(() => import('./views/transactions/Transactio
 const CreateTransaction = React.lazy(() => import('./views/transactions/CreateTransaction'))
 const DetailTransaction = React.lazy(() => import('./views/transactions/DetailTransaction'))
 const EditTransaction = React.lazy(() => import('./views/transactions/EditTransaction'))
-const PaymentHistory = React.lazy(() => import('./views/transactions/payments/PaymentHistory'))
+const PaymentHistory = React.lazy(() => import('./views/transactions/payments/PaymentList'))
 const EditPayment = React.lazy(() => import('./views/transactions/payments/EditPayment'))
 const MakePayment = React.lazy(() => import('./views/transactions/payments/MakePayment'))
 
@@ -98,11 +98,29 @@ const CreateIncome = React.lazy(() => import('./views/incomes/CreateIncome'))
 const DetailIncome = React.lazy(() => import('./views/incomes/DetailIncome'))
 const EditIncome = React.lazy(() => import('./views/incomes/EditIncome'))
 
-// Attendaces
+// Attendanes
 const AttendanceList = React.lazy(() => import('./views/attendances/AttendanceList'))
 const CreateAttendance = React.lazy(() => import('./views/attendances/CreateAttendance'))
 const DetailAttendance = React.lazy(() => import('./views/attendances/DetailAttendance'))
 const EditAttendance = React.lazy(() => import('./views/attendances/EditAttendance'))
+
+// Relatives
+const RelativeList = React.lazy(() => import('./views/relatives/RelativeList'))
+const CreateRelative = React.lazy(() => import('./views/relatives/CreateRelative'))
+const DetailRelative = React.lazy(() => import('./views/relatives/DetailRelative'))
+const EditRelative = React.lazy(() => import('./views/relatives/EditRelative'))
+
+// Holidays
+const HolidayList = React.lazy(() => import('./views/holidays/HolidayList'))
+const CreateHoliday = React.lazy(() => import('./views/holidays/CreateHoliday'))
+const DetailHoliday = React.lazy(() => import('./views/holidays/DetailHoliday'))
+const EditHoliday = React.lazy(() => import('./views/holidays/EditHoliday'))
+
+// Wallets
+const WalletList = React.lazy(() => import('./views/wallets/WalletList'))
+const CreateWallet = React.lazy(() => import('./views/wallets/CreateWallet'))
+const DetailWallet = React.lazy(() => import('./views/wallets/DetailWallet'))
+const EditWallet = React.lazy(() => import('./views/wallets/EditWallet'))
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -207,10 +225,22 @@ const routes = [
   { path: '/employees/create-employee', name: 'Create Employee', element: CreateEmployee },
   { path: '/employees/detail-employee/:id', name: 'Detail Employee', element: DetailEmployee },
   { path: '/employees/edit-employee/:id', name: 'Edit Employee', element: EditEmployee },
-  { path: '/attendances', name: 'Attendaces', element: AttendanceList },
+  { path: '/attendances', name: 'Attendances', element: AttendanceList },
   { path: '/attendances/create-attendance', name: 'Create Attendance', element: CreateAttendance },
   { path: '/attendances/detail-attendance', name: 'Detail Attendance', element: DetailAttendance },
   { path: '/attendances/edit-attendance', name: 'Edit Attendance', element: EditAttendance },
+  { path: '/relatives', name: 'Relatives', element: RelativeList },
+  { path: '/relatives/create-relative', name: 'Create Relative', element: CreateRelative },
+  { path: '/relatives/detail-relative', name: 'Detail Relative', element: DetailRelative },
+  { path: '/relatives/edit-relative', name: 'Edit Relative', element: EditRelative },
+  { path: '/holidays', name: 'Holidays', element: HolidayList },
+  { path: '/holidays/create-holiday', name: 'Create Holiday', element: CreateHoliday },
+  { path: '/holidays/detail-holiday', name: 'Detail Holiday', element: DetailHoliday },
+  { path: '/holidays/edit-holiday', name: 'Edit Holiday', element: EditHoliday },
+  { path: '/wallets', name: 'Wallets', element: WalletList },
+  { path: '/wallets/create-wallet', name: 'Create Wallet', element: CreateWallet },
+  { path: '/wallets/detail-wallet', name: 'Detail Wallet', element: DetailWallet },
+  { path: '/wallets/edit-wallet', name: 'Edit Wallet', element: EditWallet },
 ]
 
 export default routes
