@@ -30,13 +30,13 @@ const TransactionList = () => {
   const columns = [
     {
       key: 'branch_id',
-      _style: { width: '40%' },
+      _style: { width: '10%' },
     },
-    { key: 'customer_id', _style: { width: '20%' } },
+    { key: 'customer_id', _style: { width: '10%' } },
     { key: 'amount', _style: { width: '10%' } },
-    { key: 'paid_amount' },
-    { key: 'remaining_payment' },
-    { key: 'action', filter: false, sorter: false },
+    { key: 'paid_amount', _style: { width: '20%' } },
+    { key: 'remaining_payment', _style: { width: '20%' } },
+    { key: 'action', filter: false, sorter: false, _style: { width: '30%' } },
   ]
 
   return (
@@ -108,7 +108,12 @@ const TransactionList = () => {
                           </CButton>
                         </CCol>
                         <CCol className="align-items-center">
-                          <CButton color={'primary'} size="sm" key={1}>
+                          <CButton
+                            href={`/#/transactions/payments/${item.id}`}
+                            color={'primary'}
+                            size="sm"
+                            key={1}
+                          >
                             <CIcon icon={cilArrowThickBottom} />
                           </CButton>
                         </CCol>

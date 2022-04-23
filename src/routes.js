@@ -82,9 +82,6 @@ const TransactionList = React.lazy(() => import('./views/transactions/Transactio
 const CreateTransaction = React.lazy(() => import('./views/transactions/CreateTransaction'))
 const DetailTransaction = React.lazy(() => import('./views/transactions/DetailTransaction'))
 const EditTransaction = React.lazy(() => import('./views/transactions/EditTransaction'))
-const PaymentHistory = React.lazy(() => import('./views/transactions/payments/PaymentList'))
-const EditPayment = React.lazy(() => import('./views/transactions/payments/EditPayment'))
-const MakePayment = React.lazy(() => import('./views/transactions/payments/MakePayment'))
 
 // Expenses
 const ExpenseList = React.lazy(() => import('./views/expenses/ExpenseList'))
@@ -121,6 +118,11 @@ const WalletList = React.lazy(() => import('./views/wallets/WalletList'))
 const CreateWallet = React.lazy(() => import('./views/wallets/CreateWallet'))
 const DetailWallet = React.lazy(() => import('./views/wallets/DetailWallet'))
 const EditWallet = React.lazy(() => import('./views/wallets/EditWallet'))
+
+// Payments
+const PaymentList = React.lazy(() => import('./views/transactions/payments/PaymentList'))
+const EditPayment = React.lazy(() => import('./views/transactions/payments/EditPayment'))
+const MakePayment = React.lazy(() => import('./views/transactions/payments/MakePayment'))
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -199,9 +201,9 @@ const routes = [
 
   { path: '/transactions/edit-transaction', name: 'Edit Transaction', element: EditTransaction },
   {
-    path: '/transactions/payment-history',
-    name: 'Payment History',
-    element: PaymentHistory,
+    path: '/transactions/payments/:id',
+    name: 'Payment List',
+    element: PaymentList,
   },
   {
     path: '/transactions/edit-payment',

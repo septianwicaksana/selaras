@@ -116,14 +116,14 @@ function CreateTransaction() {
   React.useEffect(() => {
     if (isSubmitSuccessful) {
       reset({
-        employee_id: '',
-        customer_id: '',
-        branch_id: '',
-        tenor: 0,
-        type: '',
-        amount: 0,
-        paid_amount: 0,
-        remaining_payment: 0,
+        // employee_id: '',
+        // customer_id: '',
+        // branch_id: '',
+        // tenor: 0,
+        // type: '',
+        // amount: 0,
+        // paid_amount: 0,
+        // remaining_payment: 0,
       })
     }
   }, [formState, isSubmitSuccessful, reset])
@@ -169,7 +169,7 @@ function CreateTransaction() {
               </div>
               <div className="mb-3">
                 <CFormLabel htmlFor="Tenor">Tenor</CFormLabel>
-                <CFormSelect aria-label="Tenor" {...register('tenor')}>
+                <CFormSelect type="number" aria-label="Tenor" {...register('tenor')}>
                   <option value={10} key={1}>
                     10 Weeks
                   </option>
@@ -205,6 +205,10 @@ function CreateTransaction() {
                   placeholder=""
                   {...register('remaining_payment')}
                 />
+              </div>
+              <div className="mb-3">
+                <CFormLabel htmlFor="tanggalPinjam">Tanggal Peminjaman</CFormLabel>
+                <CFormInput type="date" id="tanggalPinjam" placeholder="" {...register('date')} />
               </div>
               <div className=" d-flex justify-content-between">
                 <CButton href="/#/transactiones" color={'danger'} className="mb-3">

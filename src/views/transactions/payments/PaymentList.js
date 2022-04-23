@@ -25,12 +25,12 @@ const PaymentList = () => {
 
   const columns = [
     {
-      key: 'name',
+      key: 'number',
       _style: { width: '40%' },
     },
-    { key: 'address', _style: { width: '20%' } },
-    { key: 'amount', _style: { width: '10%' } },
-    { key: 'created_at', filter: false, sorter: false },
+    { key: 'payment_due', _style: { width: '20%' } },
+    { key: 'due_date', _style: { width: '10%' } },
+    { key: 'status', filter: false, sorter: false },
     { key: 'action', filter: false, sorter: false },
   ]
 
@@ -45,7 +45,7 @@ const PaymentList = () => {
       <CCol>
         <CCard className="mb-5">
           <CCardHeader>
-            <strong>List Absen</strong>
+            <strong>Pembayaran</strong>
           </CCardHeader>
           <CCardBody className="w-100 overflow-auto">
             <CSmartTable
