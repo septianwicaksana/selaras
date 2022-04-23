@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   CButton,
   CCard,
@@ -16,15 +16,15 @@ import {
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { unwrapResult } from '@reduxjs/toolkit'
-import { clearCreateCustomerStatus, createCustomer } from 'src/storages/customersSlice'
-import { useNavigate } from 'react-router-dom'
+import { clearCreateRelativeStatus, createRelative } from 'src/storages/relativesSlice'
+import { useNavigate, useParams } from 'react-router-dom'
 
-function CreateCustomer() {
+function CreateRelative() {
+  const { id } = useParams()
   let navigate = useNavigate()
   const dispatch = useDispatch()
-  const createCustomerStatus = useSelector((state) => state.customers.createCustomerStatus)
-  const id = useSelector((state) => state.customers.createCustomer)
-  const canSave = createCustomerStatus === 'idle'
+  const createRelativeStatus = useSelector((state) => state.relatives.createRelativeStatus)
+  const canSave = createRelativeStatus === 'idle'
   const {
     register,
     handleSubmit,
@@ -36,7 +36,7 @@ function CreateCustomer() {
   const onSubmit = async (data) => {
     if (canSave)
       try {
-        const resultAction = await dispatch(createCustomer(data))
+        const resultAction = await dispatch(createRelative(data))
         unwrapResult(resultAction)
         if (resultAction.payload.status === 201) {
           return (
@@ -69,9 +69,8 @@ function CreateCustomer() {
             </CToast>
           )
       } finally {
-        dispatch(clearCreateCustomerStatus())
-
-        navigate(`/relatives/create-relative/${id[0].id}`)
+        dispatch(clearCreateRelativeStatus())
+        navigate(`/relatives/create-relative/${id}`)
       }
   }
 
@@ -86,27 +85,27 @@ function CreateCustomer() {
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>Buat Nasabah Baru</strong>
+            <strong>Buat Relasi Baru</strong>
           </CCardHeader>
           <CCardBody>
             <CForm onSubmit={handleSubmit(onSubmit)}>
               <div className="mb-3">
-                <CFormLabel htmlFor="namaCabang">Nama</CFormLabel>
+                <CFormLabel htmlFor="idNasabah">ID Nasabah</CFormLabel>
                 <CFormInput
                   type="text"
-                  id="namaCabang"
-                  placeholder="Mitra Fajar Selaras"
-                  {...register('name')}
-                  readOnly
+                  id="idNasabah"
+                  placeholder=""
+                  value={id}
+                  {...register('customer_id')}
                 />
               </div>
               <div className="mb-3">
-                <CFormLabel htmlFor="ktpNasabah">KTP</CFormLabel>
-                <CFormInput type="text" id="ktpNasabah" placeholder="" {...register('ktp')} />
+                <CFormLabel htmlFor="nama">Nama Kerabat</CFormLabel>
+                <CFormInput type="text" id="nama" placeholder="" {...register('name')} />
               </div>
               <div className="mb-3">
-                <CFormLabel htmlFor="npwpNasabah">NPWP</CFormLabel>
-                <CFormInput type="text" id="npwpNasabah" placeholder="" {...register('npwp')} />
+                <CFormLabel htmlFor="relasi">Relasi</CFormLabel>
+                <CFormInput type="text" id="relasi" placeholder="" {...register('relation')} />
               </div>
               <div className="mb-3">
                 <CFormLabel htmlFor="phoneNasabah">Nomor Hp</CFormLabel>
@@ -121,29 +120,8 @@ function CreateCustomer() {
                   {...register('address')}
                 />
               </div>
-              <div className="mb-3">
-                <CFormLabel htmlFor="pobNasabah">Tempat Lahir</CFormLabel>
-                <CFormInput type="text" id="pobNasabah" placeholder="" {...register('pob')} />
-              </div>
-              <div className="mb-3">
-                <CFormLabel htmlFor="dobNasabah">Tanggal Lahir</CFormLabel>
-                <CFormInput type="date" id="dobNasabah" placeholder="" {...register('dob')} />
-              </div>
-              <div className="mb-3">
-                <CFormLabel htmlFor="bankName">Nama Pemegang Rekening</CFormLabel>
-                <CFormInput type="text" id="bankName" placeholder="" {...register('bank_name')} />
-              </div>
-              <div className="mb-3">
-                <CFormLabel htmlFor="dobNasabah">Nomor Rekening</CFormLabel>
-                <CFormInput
-                  type="text"
-                  id="dobNasabah"
-                  placeholder=""
-                  {...register('bank_account')}
-                />
-              </div>
               <div className=" d-flex justify-content-between">
-                <CButton href="/#/customers" color={'danger'} className="mb-3">
+                <CButton href={`/#/relatives/${id}`} color={'danger'} className="mb-3">
                   Cancel
                 </CButton>
                 <CButton type="submit" className="mb-3">
@@ -158,4 +136,4 @@ function CreateCustomer() {
   )
 }
 
-export default CreateCustomer
+export default CreateRelative

@@ -4,8 +4,10 @@ import CIcon from '@coreui/icons-react'
 import { cilArrowThickBottom, cilPencil, cilPlus, cilSearch, cilTrash } from '@coreui/icons'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchPayment, deletePayment, clearPaymentByIdStatus } from 'src/storages/paymentsSlice'
+import { useParams } from 'react-router-dom'
 
 const PaymentList = () => {
+  const { id } = useParams()
   const dispatch = useDispatch()
   const paymentList = useSelector((state) => state.payments.paymentList)
   const paymentListStatus = useSelector((state) => state.payments.paymentListStatus)
@@ -13,9 +15,9 @@ const PaymentList = () => {
 
   useEffect(() => {
     if (paymentListStatus === 'idle') {
-      dispatch(fetchPayment())
+      dispatch(fetchPayment(id))
     }
-  }, [paymentListStatus, dispatch])
+  }, [paymentListStatus, id, dispatch])
 
   useEffect(() => {
     if (paymentByIdStatus === 'succeeded') {
@@ -58,11 +60,11 @@ const PaymentList = () => {
               activePage={3}
               items={paymentList}
               columns={columns}
-              columnFilter
-              tableFilter
-              cleaner
+              // columnFilter
+              // tableFilter
+              // cleaner
               itemsPerPageSelect
-              itemsPerPage={5}
+              itemsPerPage={10}
               columnSorter
               pagination
               scopedColumns={{
@@ -90,7 +92,7 @@ const PaymentList = () => {
                             <CIcon icon={cilPencil} />
                           </CButton>
                         </CCol>
-                        <CCol className="align-items-center">
+                        {/* <CCol className="align-items-center">
                           <CButton
                             onClick={() => {
                               dispatch(deletePayment(item.id))
@@ -101,12 +103,7 @@ const PaymentList = () => {
                           >
                             <CIcon icon={cilTrash} />
                           </CButton>
-                        </CCol>
-                        <CCol className="align-items-center">
-                          <CButton color={'primary'} size="sm" key={1}>
-                            <CIcon icon={cilArrowThickBottom} />
-                          </CButton>
-                        </CCol>
+                        </CCol> */}
                       </CRow>
                     </td>
                   )

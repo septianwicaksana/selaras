@@ -119,6 +119,7 @@ const customersSlice = createSlice({
     [createCustomer.fulfilled]: (state, action) => {
       state.createCustomerStatus = 'succeeded'
       state.customerList = state.customerList.concat(action.payload.data[0])
+      state.createCustomer = state.createCustomer.concat(action.payload.data[0])
     },
     [createCustomer.rejected]: (state, action) => {
       state.createCustomerStatus = 'failed'

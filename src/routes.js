@@ -102,10 +102,10 @@ const DetailAttendance = React.lazy(() => import('./views/attendances/DetailAtte
 const EditAttendance = React.lazy(() => import('./views/attendances/EditAttendance'))
 
 // Relatives
-const RelativeList = React.lazy(() => import('./views/relatives/RelativeList'))
-const CreateRelative = React.lazy(() => import('./views/relatives/CreateRelative'))
-const DetailRelative = React.lazy(() => import('./views/relatives/DetailRelative'))
-const EditRelative = React.lazy(() => import('./views/relatives/EditRelative'))
+const RelativeList = React.lazy(() => import('./views/customers/relatives/RelativeList'))
+const CreateRelative = React.lazy(() => import('./views/customers/relatives/CreateRelative'))
+const DetailRelative = React.lazy(() => import('./views/customers/relatives/DetailRelative'))
+const EditRelative = React.lazy(() => import('./views/customers/relatives/EditRelative'))
 
 // Holidays
 const HolidayList = React.lazy(() => import('./views/holidays/HolidayList'))
@@ -232,7 +232,7 @@ const routes = [
   { path: '/attendances/detail-attendance', name: 'Detail Attendance', element: DetailAttendance },
   { path: '/attendances/edit-attendance', name: 'Edit Attendance', element: EditAttendance },
   { path: '/relatives', name: 'Relatives', element: RelativeList },
-  { path: '/relatives/create-relative', name: 'Create Relative', element: CreateRelative },
+  { path: '/relatives/create-relative/:id', name: 'Create Relative', element: CreateRelative },
   { path: '/relatives/detail-relative', name: 'Detail Relative', element: DetailRelative },
   { path: '/relatives/edit-relative', name: 'Edit Relative', element: EditRelative },
   { path: '/holidays', name: 'Holidays', element: HolidayList },

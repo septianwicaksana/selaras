@@ -1,7 +1,15 @@
 import React, { useEffect } from 'react'
 import { CButton, CCard, CCardBody, CCardHeader, CCol, CRow, CSmartTable } from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
-import { cilArrowThickBottom, cilPencil, cilPlus, cilSearch, cilTrash } from '@coreui/icons'
+import {
+  cilArrowThickBottom,
+  cilHistory,
+  cilPencil,
+  cilPeople,
+  cilPlus,
+  cilSearch,
+  cilTrash,
+} from '@coreui/icons'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   fetchTransaction,
@@ -114,7 +122,7 @@ const TransactionList = () => {
                             size="sm"
                             key={1}
                           >
-                            <CIcon icon={cilArrowThickBottom} />
+                            <CIcon icon={cilHistory} />
                           </CButton>
                         </CCol>
                       </CRow>

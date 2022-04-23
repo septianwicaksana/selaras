@@ -36,7 +36,7 @@ const CustomerList = () => {
   return (
     <CRow>
       <div className="d-flex  justify-content-end  mb-3">
-        <CButton href="/#/customeres/create-customer" color={'primary'} key={1}>
+        <CButton href="/#/customers/create-customer" color={'primary'} key={1}>
           <CIcon icon={cilPlus} className="me-2" />
           New
         </CButton>
