@@ -41,7 +41,7 @@ const AttendanceList = () => {
   return (
     <CRow>
       <div className="d-flex  justify-content-end  mb-3">
-        <CButton href="/#/attendancees/create-attendance" color={'primary'} key={1}>
+        <CButton href="/#/attendances/create-attendance" color={'primary'} key={1}>
           <CIcon icon={cilPlus} className="me-2" />
           New
         </CButton>
@@ -76,7 +76,7 @@ const AttendanceList = () => {
                       <CRow className=" px-2" xs={{ gutterX: 1, gutterY: 2 }}>
                         <CCol className="align-items-center">
                           <CButton
-                            href={`/#/attendancees/detail-attendance/${item.id}`}
+                            href={`/#/attendances/detail-attendance/${item.id}`}
                             color={'info'}
                             size="sm"
                             key={1}
@@ -86,7 +86,7 @@ const AttendanceList = () => {
                         </CCol>
                         <CCol className="align-items-center">
                           <CButton
-                            href={`/#/attendancees/edit-attendance/${item.id}`}
+                            href={`/#/attendances/edit-attendance/${item.id}`}
                             color={'secondary'}
                             size="sm"
                             key={2}
