@@ -18,20 +18,10 @@ import { cilApplicationsSettings, cilMenu, cilMoon, cilSun } from '@coreui/icons
 
 import { AppBreadcrumb } from './index'
 
-import {
-  AppHeaderDropdown,
-  AppHeaderDropdownMssg,
-  AppHeaderDropdownNotif,
-  AppHeaderDropdownTasks,
-} from './header/index'
+import { AppHeaderDropdown } from './header/index'
 
 import { logo } from 'src/assets/brand/logo'
-import {
-  changeAsideShow,
-  changeSideBarShow,
-  changeThemeToDark,
-  changeThemeToLight,
-} from 'src/storages/tabsSlice'
+import { changeSideBarShow, changeThemeToDark, changeThemeToLight } from 'src/storages/tabsSlice'
 
 const AppHeader = () => {
   const dispatch = useDispatch()

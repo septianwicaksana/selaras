@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import {
   CButton,
   CCard,
@@ -13,8 +13,28 @@ import {
 } from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
+import { Navigate } from 'react-router-dom'
+import { useAuth } from 'src/contexts/Auth'
 
 const Register = () => {
+  const emailRef = useRef()
+  const passwordRef = useRef()
+  const { signUp } = useAuth()
+
+  async function handleSubmit(e) {
+    e.preventDefault()
+
+    const email = emailRef.current.value
+    const password = passwordRef.current.value
+
+    const { error } = await signUp({ email, password })
+
+    if (error) {
+      alert('error signing in')
+    } else {
+      ;<Navigate to={`/`} />
+    }
+  }
   return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
       <CContainer>
@@ -22,7 +42,7 @@ const Register = () => {
           <CCol md={9} lg={7} xl={6}>
             <CCard className="mx-4">
               <CCardBody className="p-4">
-                <CForm>
+                <CForm onSubmit={handleSubmit}>
                   <h1>Register</h1>
                   <p className="text-medium-emphasis">Create your account</p>
                   <CInputGroup className="mb-3">
@@ -33,7 +53,7 @@ const Register = () => {
                   </CInputGroup>
                   <CInputGroup className="mb-3">
                     <CInputGroupText>@</CInputGroupText>
-                    <CFormInput placeholder="Email" autoComplete="email" />
+                    <CFormInput placeholder="Email" autoComplete="email" ref={emailRef} />
                   </CInputGroup>
                   <CInputGroup className="mb-3">
                     <CInputGroupText>
@@ -43,6 +63,7 @@ const Register = () => {
                       type="password"
                       placeholder="Password"
                       autoComplete="new-password"
+                      ref={passwordRef}
                     />
                   </CInputGroup>
                   <CInputGroup className="mb-4">
@@ -56,7 +77,9 @@ const Register = () => {
                     />
                   </CInputGroup>
                   <div className="d-grid">
-                    <CButton color="success">Create Account</CButton>
+                    <CButton type="submit" color="success">
+                      Create Account
+                    </CButton>
                   </div>
                 </CForm>
               </CCardBody>

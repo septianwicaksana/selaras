@@ -111,32 +111,6 @@ const BranchList = () => {
                     </td>
                   )
                 },
-                // show_details: (item) => {
-                //   return (
-                //     <td className="py-2">
-                //       <CButton
-                //         color="primary"
-                //         variant="outline"
-                //         shape="square"
-                //         size="sm"
-                //         onClick={() => {
-                //           toggleDetails(item.id)
-                //         }}
-                //       >
-                //         {details.includes(item.id) ? 'Hide' : 'Show'}
-                //       </CButton>
-                //     </td>
-                //   )
-                // },
-                // details: (item) => {
-                //   return (
-                //     <CCollapse visible={details.includes(item.id)}>
-                //       <CCardBody>
-                //         <h5>This for details</h5>
-                //       </CCardBody>
-                //     </CCollapse>
-                //   )
-                // },
               }}
             />
           </CCardBody>
