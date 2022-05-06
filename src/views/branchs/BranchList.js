@@ -4,6 +4,7 @@ import CIcon from '@coreui/icons-react'
 import { cilArrowThickBottom, cilPencil, cilPlus, cilSearch, cilTrash } from '@coreui/icons'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchBranch, deleteBranch, clearBranchByIdStatus } from 'src/storages/branchsSlice'
+import moment from 'moment'
 
 const BranchList = () => {
   const dispatch = useDispatch()
@@ -66,6 +67,9 @@ const BranchList = () => {
               columnSorter
               pagination
               scopedColumns={{
+                created_at: (item) => {
+                  return <td>{moment(item.created_at).format('MMMM Do YYYY, h:mm:ss a')}</td>
+                },
                 action: (item) => {
                   return (
                     <td>

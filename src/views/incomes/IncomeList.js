@@ -37,7 +37,7 @@ const IncomeList = () => {
   return (
     <CRow>
       <div className="d-flex  justify-content-end  mb-3">
-        <CButton href="/#/incomees/create-income" color={'primary'} key={1}>
+        <CButton href="/#/incomes/create-income" color={'primary'} key={1}>
           <CIcon icon={cilPlus} className="me-2" />
           New
         </CButton>

@@ -17,8 +17,8 @@ import {
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { unwrapResult } from '@reduxjs/toolkit'
-import { clearCreateBranchStatus, fetchBranch } from 'src/storages/branchsSlice'
-import { createEmployee } from 'src/storages/employeesSlice'
+import { fetchBranch } from 'src/storages/branchsSlice'
+import { clearCreateEmployeeStatus, createEmployee } from 'src/storages/employeesSlice'
 
 function CreateEmployee() {
   const dispatch = useDispatch()
@@ -32,8 +32,8 @@ function CreateEmployee() {
     }
   }, [branchListStatus, dispatch])
 
-  const createBranchStatus = useSelector((state) => state.branchs.createBranchStatus)
-  const canSave = createBranchStatus === 'idle'
+  const createEmployeeStatus = useSelector((state) => state.employees.createEmployeeStatus)
+  const canSave = createEmployeeStatus === 'idle'
   const {
     register,
     handleSubmit,
@@ -79,7 +79,7 @@ function CreateEmployee() {
             </CToast>
           )
       } finally {
-        dispatch(clearCreateBranchStatus())
+        dispatch(clearCreateEmployeeStatus())
       }
   }
 
@@ -109,24 +109,28 @@ function CreateEmployee() {
           </CCardHeader>
           <CCardBody>
             <CForm onSubmit={handleSubmit(onSubmit)}>
-              <div className="mb-3">
-                <CFormLabel htmlFor="namaCabang">Cabang</CFormLabel>
-                <CFormSelect aria-label="namaCabang" {...register('branch_id')}>
-                  {branchList.map((data) => (
-                    <option value={data.id} key={data.id}>
-                      {data.name}
-                    </option>
-                  ))}
-                </CFormSelect>
-              </div>
+              {branchList ? (
+                <div className="mb-3">
+                  <CFormLabel htmlFor="namaCabang">Cabang</CFormLabel>
+                  <CFormSelect aria-label="namaCabang" {...register('branch_id')}>
+                    {branchList.map((data) => (
+                      <option value={data.id} key={data.id}>
+                        {data.name}
+                      </option>
+                    ))}
+                  </CFormSelect>
+                </div>
+              ) : (
+                <div className="mb-3">
+                  <CFormLabel htmlFor="namaCabang">Cabang</CFormLabel>
+                  <CFormSelect aria-label="namaCabang" {...register('branch_id')}>
+                    <option>no data</option>
+                  </CFormSelect>
+                </div>
+              )}
               <div className="mb-3">
                 <CFormLabel htmlFor="namaKaryawan">Nama</CFormLabel>
-                <CFormInput
-                  type="text"
-                  id="namaKaryawan"
-                  placeholder="Mitra Fajar Selaras"
-                  {...register('name')}
-                />
+                <CFormInput type="text" id="namaKaryawan" {...register('name')} />
               </div>
               <div className="mb-3">
                 <CFormLabel htmlFor="ktpKaryawan">KTP</CFormLabel>
@@ -142,12 +146,7 @@ function CreateEmployee() {
               </div>
               <div className="mb-3">
                 <CFormLabel htmlFor="alamatCabang">Alamat</CFormLabel>
-                <CFormInput
-                  type="alamat"
-                  id="alamatCabang"
-                  placeholder="Komplek Rukan PTC Blok 8C No. 28-29 Pulogadung, RW.3, Rw. Terate, Kec. Cakung, Jakarta, Daerah Khusus Ibukota Jakarta 13920"
-                  {...register('address')}
-                />
+                <CFormInput type="alamat" id="alamatCabang" {...register('address')} />
               </div>
               <div className="mb-3">
                 <CFormLabel htmlFor="tempatLahir">Tempat Lahir</CFormLabel>

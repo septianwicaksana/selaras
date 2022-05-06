@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { CButton, CCard, CCardBody, CCardHeader, CCol, CRow, CSmartTable } from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
-import { cilArrowThickBottom, cilPencil, cilPlus, cilSearch, cilTrash } from '@coreui/icons'
+import { cilArrowThickBottom, cilPencil, cilSearch, cilTrash } from '@coreui/icons'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   fetchAttendance,
@@ -29,23 +29,17 @@ const AttendanceList = () => {
 
   const columns = [
     {
-      key: 'name',
-      _style: { width: '40%' },
+      key: 'employee_id',
+      label: 'Nama',
     },
-    { key: 'address', _style: { width: '20%' } },
-    { key: 'amount', _style: { width: '10%' } },
-    { key: 'created_at', filter: false, sorter: false },
+    { key: 'date', label: 'Tanggal' },
+    { key: 'time', label: 'Waktu' },
+    { key: 'location', label: 'Lokasi' },
     { key: 'action', filter: false, sorter: false },
   ]
 
   return (
     <CRow>
-      <div className="d-flex  justify-content-end  mb-3">
-        <CButton href="/#/attendancees/create-attendance" color={'primary'} key={1}>
-          <CIcon icon={cilPlus} className="me-2" />
-          New
-        </CButton>
-      </div>
       <CCol>
         <CCard className="mb-5">
           <CCardHeader>

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { CButton, CCard, CCardBody, CCardHeader, CCol, CRow, CSmartTable } from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
-import { cilArrowThickBottom, cilPencil, cilPlus, cilSearch, cilTrash } from '@coreui/icons'
+import { cilPencil, cilPlus, cilSearch, cilTrash } from '@coreui/icons'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchAccount, deleteAccount, clearAccountByIdStatus } from 'src/storages/accountsSlice'
 
@@ -24,20 +24,16 @@ const AccountList = () => {
   }, [accountByIdStatus, dispatch])
 
   const columns = [
-    {
-      key: 'name',
-      _style: { width: '40%' },
-    },
-    { key: 'address', _style: { width: '20%' } },
-    { key: 'amount', _style: { width: '10%' } },
-    { key: 'created_at', filter: false, sorter: false },
+    { key: 'category' },
+    { key: 'ledger' },
+    { key: 'name' },
     { key: 'action', filter: false, sorter: false },
   ]
 
   return (
     <CRow>
       <div className="d-flex  justify-content-end  mb-3">
-        <CButton href="/#/accountes/create-account" color={'primary'} key={1}>
+        <CButton href="/#/accounts/create-account" color={'primary'} key={1}>
           <CIcon icon={cilPlus} className="me-2" />
           New
         </CButton>
@@ -45,7 +41,7 @@ const AccountList = () => {
       <CCol>
         <CCard className="mb-5">
           <CCardHeader>
-            <strong>List Absen</strong>
+            <strong>List Accounts</strong>
           </CCardHeader>
           <CCardBody className="w-100 overflow-auto">
             <CSmartTable
@@ -102,41 +98,10 @@ const AccountList = () => {
                             <CIcon icon={cilTrash} />
                           </CButton>
                         </CCol>
-                        <CCol className="align-items-center">
-                          <CButton color={'primary'} size="sm" key={1}>
-                            <CIcon icon={cilArrowThickBottom} />
-                          </CButton>
-                        </CCol>
                       </CRow>
                     </td>
                   )
                 },
-                // show_details: (item) => {
-                //   return (
-                //     <td className="py-2">
-                //       <CButton
-                //         color="primary"
-                //         variant="outline"
-                //         shape="square"
-                //         size="sm"
-                //         onClick={() => {
-                //           toggleDetails(item.id)
-                //         }}
-                //       >
-                //         {details.includes(item.id) ? 'Hide' : 'Show'}
-                //       </CButton>
-                //     </td>
-                //   )
-                // },
-                // details: (item) => {
-                //   return (
-                //     <CCollapse visible={details.includes(item.id)}>
-                //       <CCardBody>
-                //         <h5>This for details</h5>
-                //       </CCardBody>
-                //     </CCollapse>
-                //   )
-                // },
               }}
             />
           </CCardBody>

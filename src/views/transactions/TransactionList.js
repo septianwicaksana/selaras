@@ -1,9 +1,25 @@
 import React, { useEffect } from 'react'
-import { CButton, CCard, CCardBody, CCardHeader, CCol, CRow, CSmartTable } from '@coreui/react-pro'
+import {
+  CButton,
+  CCard,
+  CCardBody,
+  CCardHeader,
+  CCol,
+  CDropdown,
+  CDropdownItem,
+  CDropdownMenu,
+  CDropdownToggle,
+  CRow,
+  CSmartTable,
+  CWidgetStatsA,
+} from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
 import {
+  cilArrowBottom,
   cilArrowThickBottom,
+  cilArrowTop,
   cilHistory,
+  cilOptions,
   cilPencil,
   cilPeople,
   cilPlus,
@@ -16,6 +32,8 @@ import {
   deleteTransaction,
   clearTransactionByIdStatus,
 } from 'src/storages/transactionsSlice'
+import { CChartBar, CChartLine } from '@coreui/react-chartjs'
+import { getStyle } from '@coreui/utils'
 
 const TransactionList = () => {
   const dispatch = useDispatch()
@@ -58,7 +76,7 @@ const TransactionList = () => {
       <CCol>
         <CCard className="mb-5">
           <CCardHeader>
-            <strong>List Transaction</strong>
+            <strong>List Transaksi</strong>
           </CCardHeader>
           <CCardBody className="w-100 overflow-auto">
             <CSmartTable

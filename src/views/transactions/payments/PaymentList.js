@@ -1,13 +1,15 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CButton, CCard, CCardBody, CCardHeader, CCol, CRow, CSmartTable } from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
-import { cilArrowThickBottom, cilPencil, cilPlus, cilSearch, cilTrash } from '@coreui/icons'
+import { cilPencil, cilPlus, cilSearch } from '@coreui/icons'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchPayment, deletePayment, clearPaymentByIdStatus } from 'src/storages/paymentsSlice'
+import { fetchPayment, clearPaymentByIdStatus } from 'src/storages/paymentsSlice'
 import { useParams } from 'react-router-dom'
 
 const PaymentList = () => {
   const { id } = useParams()
+  const [showMakePayment, setShowMakePayment] = useState(false)
+  const [showEditPayment, setShowEditPayment] = useState(false)
   const dispatch = useDispatch()
   const paymentList = useSelector((state) => state.payments.paymentList)
   const paymentListStatus = useSelector((state) => state.payments.paymentListStatus)
@@ -39,7 +41,7 @@ const PaymentList = () => {
   return (
     <CRow>
       <div className="d-flex  justify-content-end  mb-3">
-        <CButton href="/#/paymentes/create-payment" color={'primary'} key={1}>
+        <CButton href="/#/payments/create-payment" color={'primary'} key={1}>
           <CIcon icon={cilPlus} className="me-2" />
           New
         </CButton>
@@ -118,3 +120,11 @@ const PaymentList = () => {
 }
 
 export default PaymentList
+
+function EditPayment() {
+  return <></>
+}
+
+function MakePayment() {
+  return <></>
+}

@@ -92,13 +92,7 @@ function CreateCustomer() {
             <CForm onSubmit={handleSubmit(onSubmit)}>
               <div className="mb-3">
                 <CFormLabel htmlFor="namaCabang">Nama</CFormLabel>
-                <CFormInput
-                  type="text"
-                  id="namaCabang"
-                  placeholder="Mitra Fajar Selaras"
-                  {...register('name')}
-                  readOnly
-                />
+                <CFormInput type="text" id="namaCabang" placeholder="" {...register('name')} />
               </div>
               <div className="mb-3">
                 <CFormLabel htmlFor="ktpNasabah">KTP</CFormLabel>

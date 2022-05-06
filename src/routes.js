@@ -119,6 +119,12 @@ const CreateWallet = React.lazy(() => import('./views/wallets/CreateWallet'))
 const DetailWallet = React.lazy(() => import('./views/wallets/DetailWallet'))
 const EditWallet = React.lazy(() => import('./views/wallets/EditWallet'))
 
+// Accounts
+const AccountList = React.lazy(() => import('./views/accounts/AccountList'))
+const CreateAccount = React.lazy(() => import('./views/accounts/CreateAccount'))
+const DetailAccount = React.lazy(() => import('./views/accounts/DetailAccount'))
+const EditAccount = React.lazy(() => import('./views/accounts/EditAccount'))
+
 // Payments
 const PaymentList = React.lazy(() => import('./views/transactions/payments/PaymentList'))
 const EditPayment = React.lazy(() => import('./views/transactions/payments/EditPayment'))
@@ -243,6 +249,10 @@ const routes = [
   { path: '/wallets/create-wallet', name: 'Create Wallet', element: CreateWallet },
   { path: '/wallets/detail-wallet', name: 'Detail Wallet', element: DetailWallet },
   { path: '/wallets/edit-wallet', name: 'Edit Wallet', element: EditWallet },
+  { path: '/accounts', name: 'Accounts', element: AccountList },
+  { path: '/accounts/create-account', name: 'Create Account', element: CreateAccount },
+  { path: '/accounts/detail-account', name: 'Detail Account', element: DetailAccount },
+  { path: '/accounts/edit-account', name: 'Edit Account', element: EditAccount },
 ]
 
 export default routes

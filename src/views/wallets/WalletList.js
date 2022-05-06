@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { CButton, CCard, CCardBody, CCardHeader, CCol, CRow, CSmartTable } from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
-import { cilArrowThickBottom, cilPencil, cilPlus, cilSearch, cilTrash } from '@coreui/icons'
+import { cilPencil, cilPlus, cilSearch, cilTrash } from '@coreui/icons'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchWallet, deleteWallet, clearWalletByIdStatus } from 'src/storages/walletsSlice'
 
@@ -26,18 +26,15 @@ const WalletList = () => {
   const columns = [
     {
       key: 'name',
-      _style: { width: '40%' },
     },
-    { key: 'address', _style: { width: '20%' } },
-    { key: 'amount', _style: { width: '10%' } },
-    { key: 'created_at', filter: false, sorter: false },
+    { key: 'amount' },
     { key: 'action', filter: false, sorter: false },
   ]
 
   return (
     <CRow>
       <div className="d-flex  justify-content-end  mb-3">
-        <CButton href="/#/walletes/create-wallet" color={'primary'} key={1}>
+        <CButton href="/#/wallets/create-wallet" color={'primary'} key={1}>
           <CIcon icon={cilPlus} className="me-2" />
           New
         </CButton>
@@ -100,11 +97,6 @@ const WalletList = () => {
                             key={3}
                           >
                             <CIcon icon={cilTrash} />
-                          </CButton>
-                        </CCol>
-                        <CCol className="align-items-center">
-                          <CButton color={'primary'} size="sm" key={1}>
-                            <CIcon icon={cilArrowThickBottom} />
                           </CButton>
                         </CCol>
                       </CRow>

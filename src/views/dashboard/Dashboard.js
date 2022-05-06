@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import {
   CAvatar,
@@ -42,6 +42,7 @@ import {
   cilPeople,
   cilUser,
   cilUserFemale,
+  cilPlus,
 } from '@coreui/icons'
 
 import avatar1 from 'src/assets/images/avatars/1.jpg'
@@ -53,8 +54,53 @@ import avatar6 from 'src/assets/images/avatars/6.jpg'
 
 import WidgetsBrand from '../widgets/WidgetsBrand'
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
+import moment from 'moment'
 
-const Dashboard = () => {
+function Dashboard() {
+  const [role, setRole] = useState('second')
+  return <>{role == 'second' ? <StaffDashboard /> : <StakeholderDashboard />}</>
+}
+
+const StaffDashboard = () => {
+  return (
+    <div>
+      <CCard className="mx-5 mb-5">
+        <CCardBody>
+          <CRow>
+            <CCol sm={5}>
+              <h4 id="traffic" className="card-title mb-1">
+                Absen Masuk
+              </h4>
+              <div className="small text-medium-emphasis mb-3">{moment().toLocaleString()}</div>
+              <CButton href="/#/employees/create-employee" color={'primary'} key={1}>
+                <CIcon icon={cilPlus} className="me-2" />
+                Check-In
+              </CButton>
+            </CCol>
+          </CRow>
+        </CCardBody>
+      </CCard>
+      <CCard className="mx-5">
+        <CCardBody>
+          <CRow>
+            <CCol sm={5}>
+              <h4 id="traffic" className="card-title mb-1">
+                Absen Keluar
+              </h4>
+              <div className="small text-medium-emphasis mb-3">{moment().toLocaleString()}</div>
+              <CButton href="/#/employees/create-employee" color={'primary'} key={1}>
+                <CIcon icon={cilPlus} className="me-2" />
+                Check-Out
+              </CButton>
+            </CCol>
+          </CRow>
+        </CCardBody>
+      </CCard>
+    </div>
+  )
+}
+
+const StakeholderDashboard = () => {
   const random = (min, max) => Math.floor(Math.random() * (max - min + 1) + min)
 
   const progressExample = [
@@ -313,8 +359,6 @@ const Dashboard = () => {
         </CCardFooter>
       </CCard>
 
-      <WidgetsBrand withCharts />
-
       <CRow>
         <CCol xs>
           <CCard className="mb-4">
@@ -403,62 +447,6 @@ const Dashboard = () => {
               </CRow>
 
               <br />
-
-              <CTable align="middle" className="mb-0 border" hover responsive>
-                <CTableHead color="light">
-                  <CTableRow>
-                    <CTableHeaderCell className="text-center">
-                      <CIcon icon={cilPeople} />
-                    </CTableHeaderCell>
-                    <CTableHeaderCell>User</CTableHeaderCell>
-                    <CTableHeaderCell className="text-center">Country</CTableHeaderCell>
-                    <CTableHeaderCell>Usage</CTableHeaderCell>
-                    <CTableHeaderCell className="text-center">Payment Method</CTableHeaderCell>
-                    <CTableHeaderCell>Activity</CTableHeaderCell>
-                  </CTableRow>
-                </CTableHead>
-                <CTableBody>
-                  {tableExample.map((item, index) => (
-                    <CTableRow v-for="item in tableItems" key={index}>
-                      <CTableDataCell className="text-center">
-                        <CAvatar size="md" src={item.avatar.src} status={item.avatar.status} />
-                      </CTableDataCell>
-                      <CTableDataCell>
-                        <div>{item.user.name}</div>
-                        <div className="small text-medium-emphasis">
-                          <span>{item.user.new ? 'New' : 'Recurring'}</span> | Registered:{' '}
-                          {item.user.registered}
-                        </div>
-                      </CTableDataCell>
-                      <CTableDataCell className="text-center">
-                        <CIcon size="xl" icon={item.country.flag} title={item.country.name} />
-                      </CTableDataCell>
-                      <CTableDataCell>
-                        <div className="clearfix">
-                          <div className="float-start">
-                            <strong>{item.usage.value}%</strong>
-                          </div>
-                          <div className="float-end">
-                            <small className="text-medium-emphasis">{item.usage.period}</small>
-                          </div>
-                        </div>
-                        <CProgress
-                          thin
-                          color={`${item.usage.color}-gradient`}
-                          value={item.usage.value}
-                        />
-                      </CTableDataCell>
-                      <CTableDataCell className="text-center">
-                        <CIcon size="xl" icon={item.payment.icon} />
-                      </CTableDataCell>
-                      <CTableDataCell>
-                        <div className="small text-medium-emphasis">Last login</div>
-                        <strong>{item.activity}</strong>
-                      </CTableDataCell>
-                    </CTableRow>
-                  ))}
-                </CTableBody>
-              </CTable>
             </CCardBody>
           </CCard>
         </CCol>

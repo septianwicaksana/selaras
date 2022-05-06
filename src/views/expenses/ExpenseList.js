@@ -37,7 +37,7 @@ const ExpenseList = () => {
   return (
     <CRow>
       <div className="d-flex  justify-content-end  mb-3">
-        <CButton href="/#/expensees/create-expense" color={'primary'} key={1}>
+        <CButton href="/#/expenses/create-expense" color={'primary'} key={1}>
           <CIcon icon={cilPlus} className="me-2" />
           New
         </CButton>
@@ -45,7 +45,7 @@ const ExpenseList = () => {
       <CCol>
         <CCard className="mb-5">
           <CCardHeader>
-            <strong>List Pengeluaran</strong>
+            <strong>List Pemasukan</strong>
           </CCardHeader>
           <CCardBody className="w-100 overflow-auto">
             <CSmartTable

@@ -4,6 +4,7 @@ import CIcon from '@coreui/icons-react'
 import { cilArrowThickBottom, cilPencil, cilPlus, cilSearch, cilTrash } from '@coreui/icons'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchHoliday, deleteHoliday, clearHolidayByIdStatus } from 'src/storages/holidaysSlice'
+import moment from 'moment'
 
 const HolidayList = () => {
   const dispatch = useDispatch()
@@ -25,19 +26,16 @@ const HolidayList = () => {
 
   const columns = [
     {
-      key: 'name',
-      _style: { width: '40%' },
+      key: 'date',
     },
-    { key: 'address', _style: { width: '20%' } },
-    { key: 'amount', _style: { width: '10%' } },
-    { key: 'created_at', filter: false, sorter: false },
+    { key: 'description' },
     { key: 'action', filter: false, sorter: false },
   ]
 
   return (
     <CRow>
       <div className="d-flex  justify-content-end  mb-3">
-        <CButton href="/#/holidayes/create-holiday" color={'primary'} key={1}>
+        <CButton href="/#/holidays/create-holiday" color={'primary'} key={1}>
           <CIcon icon={cilPlus} className="me-2" />
           New
         </CButton>
@@ -66,13 +64,16 @@ const HolidayList = () => {
               columnSorter
               pagination
               scopedColumns={{
+                date: (item) => {
+                  return <td>{moment(item.date).calendar().toLocaleString()}</td>
+                },
                 action: (item) => {
                   return (
                     <td>
                       <CRow className=" px-2" xs={{ gutterX: 1, gutterY: 2 }}>
                         <CCol className="align-items-center">
                           <CButton
-                            href={`/#/holidayes/detail-holiday/${item.id}`}
+                            href={`/#/holidays/detail-holiday/${item.id}`}
                             color={'info'}
                             size="sm"
                             key={1}
@@ -82,7 +83,7 @@ const HolidayList = () => {
                         </CCol>
                         <CCol className="align-items-center">
                           <CButton
-                            href={`/#/holidayes/edit-holiday/${item.id}`}
+                            href={`/#/holidays/edit-holiday/${item.id}`}
                             color={'secondary'}
                             size="sm"
                             key={2}
