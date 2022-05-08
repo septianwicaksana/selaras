@@ -21,10 +21,11 @@ import { clearCreateTransactionStatus, createTransaction } from 'src/storages/tr
 import { fetchEmployee } from 'src/storages/employeesSlice'
 import { fetchCustomer } from 'src/storages/customersSlice'
 import { fetchBranch } from 'src/storages/branchsSlice'
+import { useParams } from 'react-router-dom'
 
 function CreateTransaction() {
   const dispatch = useDispatch()
-
+  const { id } = useParams()
   const employeeList = useSelector((state) => state.employees.employeeList)
   const employeeListStatus = useSelector((state) => state.employees.employeeListStatus)
 
@@ -149,12 +150,24 @@ function CreateTransaction() {
               </div>
               <div className="mb-3">
                 <CFormLabel htmlFor="namaCustomer">Nasabah</CFormLabel>
-                <CFormSelect aria-label="namaCustomer" {...register('customer_id')}>
-                  {customerList.map((data) => (
-                    <option value={data.id} key={data.id}>
-                      {data.name}
-                    </option>
-                  ))}
+                <CFormSelect
+                  aria-label="namaCustomer"
+                  {...register('customer_id')}
+                  disabled={id ? true : false}
+                >
+                  {customerList
+                    .filter((data) => {
+                      if (id) {
+                        return data.id === id
+                      } else {
+                        return data.id
+                      }
+                    })
+                    .map((data) => (
+                      <option value={data.id} key={data.id}>
+                        {data.name}
+                      </option>
+                    ))}
                 </CFormSelect>
               </div>
               <div className="mb-3">

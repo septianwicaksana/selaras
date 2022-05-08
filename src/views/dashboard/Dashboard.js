@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import {
   CAvatar,
@@ -62,6 +62,23 @@ function Dashboard() {
 }
 
 const StaffDashboard = () => {
+  const [checkIn, setCheckIn] = useState(false)
+  const [checkOut, setCheckOut] = useState(false)
+
+  useEffect(() => {
+    const hour = moment().hour()
+    console.log(hour)
+    if (hour >= 5 && hour < 10) {
+      setCheckIn(true)
+    } else if (hour >= 16 && hour < 22) {
+      setCheckOut(true)
+    } else {
+      setCheckIn(false)
+      setCheckOut(false)
+    }
+    console.log(checkIn === true)
+  }, [])
+
   return (
     <div>
       <CCard className="mx-5 mb-5">
@@ -72,7 +89,12 @@ const StaffDashboard = () => {
                 Absen Masuk
               </h4>
               <div className="small text-medium-emphasis mb-3">{moment().toLocaleString()}</div>
-              <CButton href="/#/employees/create-employee" color={'primary'} key={1}>
+              <CButton
+                href="/#/employees/create-employee"
+                color={'primary'}
+                key={1}
+                disabled={checkIn ? false : true}
+              >
                 <CIcon icon={cilPlus} className="me-2" />
                 Check-In
               </CButton>
@@ -88,7 +110,12 @@ const StaffDashboard = () => {
                 Absen Keluar
               </h4>
               <div className="small text-medium-emphasis mb-3">{moment().toLocaleString()}</div>
-              <CButton href="/#/employees/create-employee" color={'primary'} key={1}>
+              <CButton
+                href="/#/employees/create-employee"
+                color={'primary'}
+                key={1}
+                disabled={checkOut ? false : true}
+              >
                 <CIcon icon={cilPlus} className="me-2" />
                 Check-Out
               </CButton>

@@ -71,7 +71,7 @@ const CustomerList = () => {
                       <CRow className=" px-2" xs={{ gutterX: 1, gutterY: 2 }}>
                         <CCol className="align-items-center">
                           <CButton
-                            href={`/#/customeres/detail-customer/${item.id}`}
+                            href={`/#/customers/detail-customer/${item.id}`}
                             color={'info'}
                             size="sm"
                             key={1}
@@ -81,7 +81,7 @@ const CustomerList = () => {
                         </CCol>
                         <CCol className="align-items-center">
                           <CButton
-                            href={`/#/customeres/edit-customer/${item.id}`}
+                            href={`/#/customers/edit-customer/${item.id}`}
                             color={'secondary'}
                             size="sm"
                             key={2}
@@ -104,6 +104,16 @@ const CustomerList = () => {
                         <CCol className="align-items-center">
                           <CButton color={'primary'} size="sm" key={1}>
                             <CIcon icon={cilArrowThickBottom} />
+                          </CButton>
+                        </CCol>
+                        <CCol className="align-items-center">
+                          <CButton
+                            color={'success'}
+                            size="sm"
+                            key={1}
+                            href={`/#/transactions/create-transaction/${item.id}`}
+                          >
+                            <CIcon icon={cilPencil} />
                           </CButton>
                         </CCol>
                       </CRow>

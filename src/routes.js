@@ -200,6 +200,11 @@ const routes = [
     element: CreateTransaction,
   },
   {
+    path: '/transactions/create-transaction/:id',
+    name: 'Create Transaction',
+    element: CreateTransaction,
+  },
+  {
     path: '/transactions/detail-transaction',
     name: 'Detail Transaction',
     element: DetailTransaction,
