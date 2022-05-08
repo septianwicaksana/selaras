@@ -43,16 +43,10 @@ export const updateIncome = createAsyncThunk('incomes/updateIncome', async (upda
   const { data, error } = await supabase
     .from('incomes')
     .update({
-      address: updatedData.address, //not-null
-      branch_id: updatedData.branch_id,
-      name: updatedData.name,
-      ktp: updatedData.ktp,
-      npwp: updatedData.npwp,
-      phone: updatedData.phone,
-      pob: updatedData.pob,
-      dob: updatedData.dob,
+      wallet_id: updatedData.wallet_id, //not-null
+      account: updatedData.account,
+      note: updatedData.note,
       date: updatedData.date,
-      position: updatedData.position,
     })
     .eq('id', updatedData.id)
   if (error) {

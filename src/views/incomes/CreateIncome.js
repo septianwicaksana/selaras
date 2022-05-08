@@ -18,7 +18,7 @@ import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { unwrapResult } from '@reduxjs/toolkit'
 import { fetchAccount } from 'src/storages/accountsSlice'
-import { fetchWallet } from 'src/storages/walletsSlice'
+import { clearWalletUpdateStatus, fetchWallet, updateWallet } from 'src/storages/walletsSlice'
 import { clearCreateIncomeStatus, createIncome } from 'src/storages/incomesSlice'
 
 function CreateIncome() {
@@ -56,57 +56,33 @@ function CreateIncome() {
   const onSubmit = async (data) => {
     if (canSave)
       try {
-        const resultAction = await dispatch(createIncome(data))
-        console.log(resultAction)
-        unwrapResult(resultAction)
-        if (resultAction.payload.status === 201) {
-          return (
-            <CToast
-              autohide={false}
-              visible={true}
-              color="primary"
-              className="text-white align-items-center"
-            >
-              <div className="d-flex">
-                <CToastBody>Hello, world! This is a toast message.</CToastBody>
-                <CToastClose className="me-2 m-auto" white />
-              </div>
-            </CToast>
-          )
-        }
+        console.log(data)
+        let walletData = walletList.find((p) => p.id === data.wallet_id)
+        walletData['amount'] = parseFloat(walletData.amount) + parseFloat(data.amount)
+        console.log(walletData['amount'])
+        // const resultAction = await dispatch(createIncome(data))
+        // const resultAction2 = await dispatch(updateWallet(walletData))
+        // unwrapResult(resultAction)
+        // unwrapResult(resultAction2)
+        // if (resultAction.payload.status === 201 && resultAction2.payload.status === 201) {
+        //   alert('berhasil')
+        // }
       } catch (error) {
-        if (error)
-          return (
-            <CToast
-              autohide={false}
-              visible={true}
-              color="primary"
-              className="text-white align-items-center"
-            >
-              <div className="d-flex">
-                <CToastBody>Hello, world! This is a toast message.</CToastBody>
-                <CToastClose className="me-2 m-auto" white />
-              </div>
-            </CToast>
-          )
+        alert('gagal')
       } finally {
         dispatch(clearCreateIncomeStatus())
+        dispatch(clearWalletUpdateStatus())
       }
   }
 
   React.useEffect(() => {
     if (isSubmitSuccessful) {
       reset({
-        branch_id: '',
-        name: '',
-        ktp: '',
-        npwp: '',
-        phone: '',
-        address: '',
-        pob: '',
-        dob: '',
+        wallet_id: '',
+        account_id: '',
+        note: '',
         date: '',
-        position: '',
+        amount: '',
       })
     }
   }, [formState, isSubmitSuccessful, reset])
@@ -126,7 +102,7 @@ function CreateIncome() {
                   <CFormSelect aria-label="wallet" {...register('wallet_id')}>
                     {walletList.map((data) => (
                       <option value={data.id} key={data.id}>
-                        {data.name}
+                        {data.name} - {data.amount}
                       </option>
                     ))}
                   </CFormSelect>
@@ -159,17 +135,12 @@ function CreateIncome() {
                 </div>
               )}
               <div className="mb-3">
-                <CFormLabel htmlFor="note">note</CFormLabel>
-                <CFormInput
-                  type="text"
-                  id="note"
-                  placeholder="Mitra Fajar Selaras"
-                  {...register('note')}
-                />
+                <CFormLabel htmlFor="note">Note</CFormLabel>
+                <CFormInput type="text" id="note" {...register('note')} />
               </div>
               <div className="mb-3">
                 <CFormLabel htmlFor="date">Date</CFormLabel>
-                <CFormInput type="text" id="date" placeholder="" {...register('date')} />
+                <CFormInput type="date" id="date" placeholder="" {...register('date')} />
               </div>
               <div className="mb-3">
                 <CFormLabel htmlFor="amount">Amount</CFormLabel>

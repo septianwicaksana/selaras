@@ -43,16 +43,9 @@ export const updateWallet = createAsyncThunk('wallets/updateWallet', async (upda
   const { data, error } = await supabase
     .from('wallets')
     .update({
-      address: updatedData.address, //not-null
-      branch_id: updatedData.branch_id,
-      name: updatedData.name,
-      ktp: updatedData.ktp,
-      npwp: updatedData.npwp,
-      phone: updatedData.phone,
-      pob: updatedData.pob,
-      dob: updatedData.dob,
-      date: updatedData.date,
-      position: updatedData.position,
+      name: updatedData.name, //not-null
+      amount: updatedData.amount,
+      description: updatedData.description,
     })
     .eq('id', updatedData.id)
   if (error) {
