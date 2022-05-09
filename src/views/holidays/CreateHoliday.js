@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   CButton,
   CCard,
@@ -21,6 +21,8 @@ import { clearCreateHolidayStatus, createHoliday } from 'src/storages/holidaysSl
 function CreateHoliday() {
   const dispatch = useDispatch()
   const createHolidayStatus = useSelector((state) => state.holidays.createHolidayStatus)
+  const [showToast, setShowToast] = useState(false)
+  const [toastMessage, setToastMessage] = useState('')
   const canSave = createHolidayStatus === 'idle'
   const {
     register,
@@ -37,35 +39,14 @@ function CreateHoliday() {
         console.log(resultAction)
         unwrapResult(resultAction)
         if (resultAction.payload.status === 201) {
-          return (
-            <CToast
-              autohide={false}
-              visible={true}
-              color="primary"
-              className="text-white align-items-center"
-            >
-              <div className="d-flex">
-                <CToastBody>Hello, world! This is a toast message.</CToastBody>
-                <CToastClose className="me-2 m-auto" white />
-              </div>
-            </CToast>
-          )
+          setToastMessage('Berhasil')
+          setShowToast(true)
         }
       } catch (error) {
-        if (error)
-          return (
-            <CToast
-              autohide={false}
-              visible={true}
-              color="primary"
-              className="text-white align-items-center"
-            >
-              <div className="d-flex">
-                <CToastBody>Hello, world! This is a toast message.</CToastBody>
-                <CToastClose className="me-2 m-auto" white />
-              </div>
-            </CToast>
-          )
+        if (error) {
+          setToastMessage('Gagal menambahkan')
+          setShowToast(true)
+        }
       } finally {
         dispatch(clearCreateHolidayStatus())
       }
@@ -81,35 +62,53 @@ function CreateHoliday() {
   }, [formState, isSubmitSuccessful, reset])
 
   return (
-    <CRow>
-      <CCol xs={12}>
-        <CCard className="mb-4">
-          <CCardHeader>
-            <strong>Buat Hari Libur</strong>
-          </CCardHeader>
-          <CCardBody>
-            <CForm onSubmit={handleSubmit(onSubmit)}>
-              <div className="mb-3">
-                <CFormLabel htmlFor="date">Tanggal Libur</CFormLabel>
-                <CFormInput type="date" id="date" {...register('date')} />
-              </div>
-              <div className="mb-3">
-                <CFormLabel htmlFor="description">Deskripsi</CFormLabel>
-                <CFormInput type="text" id="description" {...register('description')} />
-              </div>
-              <div className=" d-flex justify-content-between">
-                <CButton href="/#/holidays" color={'danger'} className="mb-3">
-                  Cancel
-                </CButton>
-                <CButton type="submit" className="mb-3">
-                  Submit
-                </CButton>
-              </div>
-            </CForm>
-          </CCardBody>
-        </CCard>
-      </CCol>
-    </CRow>
+    <>
+      {showToast && (
+        <div className="d-flex justify-content-center">
+          <CToast
+            autohide={false}
+            visible={true}
+            color="primary"
+            className="text-white align-items-center mb-4"
+          >
+            <div className="d-flex">
+              <CToastBody>{toastMessage}</CToastBody>
+              <CToastClose className="me-2 m-auto" white onClick={() => setShowToast(false)} />
+            </div>
+          </CToast>
+        </div>
+      )}
+
+      <CRow>
+        <CCol xs={12}>
+          <CCard className="mb-4">
+            <CCardHeader>
+              <strong>Buat Hari Libur</strong>
+            </CCardHeader>
+            <CCardBody>
+              <CForm onSubmit={handleSubmit(onSubmit)}>
+                <div className="mb-3">
+                  <CFormLabel htmlFor="date">Tanggal Libur</CFormLabel>
+                  <CFormInput type="date" id="date" {...register('date')} />
+                </div>
+                <div className="mb-3">
+                  <CFormLabel htmlFor="description">Deskripsi</CFormLabel>
+                  <CFormInput type="text" id="description" {...register('description')} />
+                </div>
+                <div className=" d-flex justify-content-between">
+                  <CButton href="/#/holidays" color={'danger'} className="mb-3">
+                    Cancel
+                  </CButton>
+                  <CButton type="submit" className="mb-3">
+                    Submit
+                  </CButton>
+                </div>
+              </CForm>
+            </CCardBody>
+          </CCard>
+        </CCol>
+      </CRow>
+    </>
   )
 }
 
