@@ -6,9 +6,7 @@ const AuthContext = React.createContext()
 // eslint-disable-next-line react/prop-types
 export function AuthProvider({ children }) {
   const [user, setUser] = useState()
-  const [userRole, setUserRole] = useState('')
   const [loading, setLoading] = useState(true)
-  var role = sessionStorage.getItem('role')
 
   useEffect(() => {
     // Check active sessions and sets the user
@@ -16,10 +14,8 @@ export function AuthProvider({ children }) {
 
     setUser(session?.user ?? null)
     setLoading(false)
-
     if (user) {
-      const { data, error } = supabase.from('employees').select(`*`)
-      console.log(data)
+      fetchEmployeeRole(user.id)
     }
 
     // Listen for changes on auth state (logged in, signed out, etc.)
@@ -39,7 +35,15 @@ export function AuthProvider({ children }) {
     signIn: (data) => supabase.auth.signIn(data),
     signOut: () => supabase.auth.signOut(),
     user,
-    role,
+  }
+
+  const fetchEmployeeRole = async (id) => {
+    try {
+      let { data, error } = await supabase.from('employees').select('position').eq('id', id)
+      sessionStorage.setItem('role', data[0].position)
+    } catch (error) {
+      alert('no data found')
+    }
   }
 
   return <AuthContext.Provider value={value}>{!loading && children}</AuthContext.Provider>

@@ -19,6 +19,7 @@ const AppHeaderDropdown = () => {
   const { signOut } = useAuth()
   async function handleSignOut() {
     await signOut()
+    sessionStorage.removeItem('role')
   }
   return (
     <CDropdown variant="nav-item" alignment="end">

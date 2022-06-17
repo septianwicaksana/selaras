@@ -29,7 +29,6 @@ const Login = () => {
     // Get email and password input values
     const email = emailRef.current.value
     const password = passwordRef.current.value
-    console.log(email)
 
     // Calls `signIn` function from the context
     const { error } = await signIn({ email, password })
