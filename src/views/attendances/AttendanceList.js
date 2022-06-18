@@ -8,6 +8,7 @@ import {
   deleteAttendance,
   clearAttendanceByIdStatus,
 } from 'src/storages/attendancesSlice'
+import moment from 'moment'
 
 const AttendanceList = () => {
   const dispatch = useDispatch()
@@ -32,23 +33,13 @@ const AttendanceList = () => {
       key: 'employee_id',
       label: 'Nama',
     },
-    { key: 'date', label: 'Tanggal' },
-    { key: 'time', label: 'Waktu' },
+    { key: 'date', label: 'waktu' },
     { key: 'location', label: 'Lokasi' },
     { key: 'action', filter: false, sorter: false },
   ]
 
   return (
     <CRow>
-<<<<<<< HEAD
-=======
-      <div className="d-flex  justify-content-end  mb-3">
-        <CButton href="/#/attendances/create-attendance" color={'primary'} key={1}>
-          <CIcon icon={cilPlus} className="me-2" />
-          New
-        </CButton>
-      </div>
->>>>>>> attendance
       <CCol>
         <CCard className="mb-5">
           <CCardHeader>
@@ -73,6 +64,9 @@ const AttendanceList = () => {
               columnSorter
               pagination
               scopedColumns={{
+                date: (item) => {
+                  return <td>{moment(item.date).format('MMMM Do YYYY, h:mm:ss a')}</td>
+                },
                 action: (item) => {
                   return (
                     <td>

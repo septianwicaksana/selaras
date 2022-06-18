@@ -22,8 +22,8 @@ import { useNavigate } from 'react-router-dom'
 function CreateCustomer() {
   let navigate = useNavigate()
   const dispatch = useDispatch()
+  const [customerID, setCustomerID] = useState('')
   const createCustomerStatus = useSelector((state) => state.customers.createCustomerStatus)
-  const id = useSelector((state) => state.customers.createCustomer)
   const canSave = createCustomerStatus === 'idle'
   const {
     register,
@@ -38,6 +38,7 @@ function CreateCustomer() {
       try {
         const resultAction = await dispatch(createCustomer(data))
         unwrapResult(resultAction)
+        setCustomerID(resultAction.payload.data[0].id)
         if (resultAction.payload.status === 201) {
           return (
             <CToast
@@ -69,9 +70,6 @@ function CreateCustomer() {
             </CToast>
           )
       } finally {
-        dispatch(clearCreateCustomerStatus())
-
-        navigate(`/relatives/create-relative/${id[0].id}`)
       }
   }
 
@@ -140,9 +138,19 @@ function CreateCustomer() {
                 <CButton href="/#/customers" color={'danger'} className="mb-3">
                   Cancel
                 </CButton>
-                <CButton type="submit" className="mb-3">
-                  Submit
-                </CButton>
+                {customerID ? (
+                  <>
+                    <CButton href={`/#/relatives/create-relative/${customerID}`} className="mb-3">
+                      Next
+                    </CButton>
+                  </>
+                ) : (
+                  <>
+                    <CButton type="submit" className="mb-3">
+                      Submit
+                    </CButton>
+                  </>
+                )}
               </div>
             </CForm>
           </CCardBody>

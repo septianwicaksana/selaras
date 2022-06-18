@@ -103,7 +103,12 @@ const CustomerList = () => {
                           </CButton>
                         </CCol>
                         <CCol className="align-items-center">
-                          <CButton color={'primary'} size="sm" key={1}>
+                          <CButton
+                            href={`/#/transactions/create-transaction/${item.id}`}
+                            color={'primary'}
+                            size="sm"
+                            key={1}
+                          >
                             <CIcon icon={cilArrowThickBottom} />
                           </CButton>
                         </CCol>

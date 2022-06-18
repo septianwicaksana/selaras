@@ -21,9 +21,12 @@ import { clearCreateTransactionStatus, createTransaction } from 'src/storages/tr
 import { fetchEmployee } from 'src/storages/employeesSlice'
 import { fetchCustomer } from 'src/storages/customersSlice'
 import { fetchBranch } from 'src/storages/branchsSlice'
+import { useParams } from 'react-router-dom'
 
 function CreateTransaction() {
   const dispatch = useDispatch()
+  const userId = sessionStorage.getItem('userId')
+  const customerId = useParams('id')
 
   const employeeList = useSelector((state) => state.employees.employeeList)
   const employeeListStatus = useSelector((state) => state.employees.employeeListStatus)
@@ -139,23 +142,25 @@ function CreateTransaction() {
             <CForm onSubmit={handleSubmit(onSubmit)}>
               <div className="mb-3">
                 <CFormLabel htmlFor="namaPegawai">Pegawai</CFormLabel>
-                <CFormSelect aria-label="namaPegawai" {...register('employee_id')}>
-                  {employeeList.map((data) => (
-                    <option value={data.id} key={data.id}>
-                      {data.name}
-                    </option>
-                  ))}
-                </CFormSelect>
+                <CFormInput
+                  type="text"
+                  id="employee_id"
+                  placeholder=""
+                  value={userId}
+                  readOnly
+                  {...register('employee_id')}
+                />
               </div>
               <div className="mb-3">
                 <CFormLabel htmlFor="namaCustomer">Nasabah</CFormLabel>
-                <CFormSelect aria-label="namaCustomer" {...register('customer_id')}>
-                  {customerList.map((data) => (
-                    <option value={data.id} key={data.id}>
-                      {data.name}
-                    </option>
-                  ))}
-                </CFormSelect>
+                <CFormInput
+                  type="text"
+                  id="employee_id"
+                  placeholder=""
+                  value={customerId.id}
+                  readOnly
+                  {...register('customer_id')}
+                />
               </div>
               <div className="mb-3">
                 <CFormLabel htmlFor="namaBranch">Cabang</CFormLabel>

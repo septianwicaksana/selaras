@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import {
-  CAvatar,
   CButton,
   CButtonGroup,
   CCard,
@@ -11,12 +10,9 @@ import {
   CCol,
   CProgress,
   CRow,
-  CTable,
-  CTableBody,
-  CTableDataCell,
-  CTableHead,
-  CTableHeaderCell,
-  CTableRow,
+  CToast,
+  CToastBody,
+  CToastClose,
 } from '@coreui/react-pro'
 import { CChartLine } from '@coreui/react-chartjs'
 import { getStyle, hexToRgba } from '@coreui/utils'
@@ -39,7 +35,6 @@ import {
   cifUs,
   cibTwitter,
   cilCloudDownload,
-  cilPeople,
   cilUser,
   cilUserFemale,
   cilPlus,
@@ -52,50 +47,124 @@ import avatar4 from 'src/assets/images/avatars/4.jpg'
 import avatar5 from 'src/assets/images/avatars/5.jpg'
 import avatar6 from 'src/assets/images/avatars/6.jpg'
 
-import WidgetsBrand from '../widgets/WidgetsBrand'
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
 import moment from 'moment'
+import { useDispatch, useSelector } from 'react-redux'
+import { clearCreateAttendanceStatus, createAttendance } from 'src/storages/attendancesSlice'
+import { useForm } from 'react-hook-form'
+import { unwrapResult } from '@reduxjs/toolkit'
 
 function Dashboard() {
-  const [role, setRole] = useState('second')
-  return <>{role == 'second' ? <StaffDashboard /> : <StakeholderDashboard />}</>
+  const role = sessionStorage.getItem('role')
+  // return <>{role == 'super_admin' ? <StakeholderDashboard /> : <StaffDashboard />}</>
+  return <>{role == 'super_admin' ? <StaffDashboard /> : <StakeholderDashboard />}</>
 }
-
 const StaffDashboard = () => {
+  const dispatch = useDispatch()
+  const [date, setDate] = React.useState(new Date())
+  const userId = sessionStorage.getItem('userId')
+  const data = { employee_id: userId, date: new Date() }
+
+  const createAttendanceStatus = useSelector((state) => state.attendances.createAttendanceStatus)
+  const canSave = createAttendanceStatus === 'idle'
+
+  const onSubmit = async (data) => {
+    if (canSave)
+      try {
+        const resultAction = await dispatch(createAttendance(data))
+        unwrapResult(resultAction)
+        if (resultAction.payload.status === 201) {
+          return (
+            <CToast
+              autohide={false}
+              visible={true}
+              color="primary"
+              className="text-white align-items-center"
+            >
+              <div className="d-flex">
+                <CToastBody>Hello, world! This is a toast message.</CToastBody>
+                <CToastClose className="me-2 m-auto" white />
+              </div>
+            </CToast>
+          )
+        }
+      } catch (error) {
+        if (error)
+          return (
+            <CToast
+              autohide={false}
+              visible={true}
+              color="primary"
+              className="text-white align-items-center"
+            >
+              <div className="d-flex">
+                <CToastBody>Hello, world! This is a toast message.</CToastBody>
+                <CToastClose className="me-2 m-auto" white />
+              </div>
+            </CToast>
+          )
+      } finally {
+        dispatch(clearCreateAttendanceStatus())
+      }
+  }
+
+  React.useEffect(() => {
+    var timerID = setInterval(() => tick(), 1000)
+    return function cleanup() {
+      clearInterval(timerID)
+    }
+  })
+
+  function tick() {
+    setDate(new Date())
+  }
+
   return (
     <div>
-      <CCard className="mx-5 mb-5">
-        <CCardBody>
-          <CRow>
-            <CCol sm={5}>
-              <h4 id="traffic" className="card-title mb-1">
-                Absen Masuk
-              </h4>
-              <div className="small text-medium-emphasis mb-3">{moment().toLocaleString()}</div>
-              <CButton href="/#/employees/create-employee" color={'primary'} key={1}>
-                <CIcon icon={cilPlus} className="me-2" />
-                Check-In
-              </CButton>
-            </CCol>
-          </CRow>
-        </CCardBody>
-      </CCard>
-      <CCard className="mx-5">
-        <CCardBody>
-          <CRow>
-            <CCol sm={5}>
-              <h4 id="traffic" className="card-title mb-1">
-                Absen Keluar
-              </h4>
-              <div className="small text-medium-emphasis mb-3">{moment().toLocaleString()}</div>
-              <CButton href="/#/employees/create-employee" color={'primary'} key={1}>
-                <CIcon icon={cilPlus} className="me-2" />
-                Check-Out
-              </CButton>
-            </CCol>
-          </CRow>
-        </CCardBody>
-      </CCard>
+      {moment(date).format('H') >= 8 && moment(date).format('H') <= 12 ? (
+        <>
+          <CCard className="mx-5 mb-5">
+            <CCardBody>
+              <CRow>
+                <CCol sm={5}>
+                  <h4 id="traffic" className="card-title mb-1">
+                    Absen Masuk
+                  </h4>
+                  <div className="small text-medium-emphasis mb-3">{moment().toLocaleString()}</div>
+                  <CButton onClick={() => onSubmit(data)} color={'primary'} key={1}>
+                    <CIcon icon={cilPlus} className="me-2" />
+                    Check-In
+                  </CButton>
+                </CCol>
+              </CRow>
+            </CCardBody>
+          </CCard>
+        </>
+      ) : (
+        <></>
+      )}
+      {moment(date).format('H') >= 17 && moment(date).format('H') <= 23 ? (
+        <>
+          <CCard className="mx-5">
+            <CCardBody>
+              <CRow>
+                <CCol sm={5}>
+                  <h4 id="traffic" className="card-title mb-1">
+                    Absen Keluar
+                  </h4>
+                  <div className="small text-medium-emphasis mb-3">{moment().toLocaleString()}</div>
+                  <CButton onClick={() => onSubmit(data)} color={'primary'} key={1}>
+                    <CIcon icon={cilPlus} className="me-2" />
+                    Check-Out
+                  </CButton>
+                </CCol>
+              </CRow>
+            </CCardBody>
+          </CCard>
+        </>
+      ) : (
+        <></>
+      )}
     </div>
   )
 }

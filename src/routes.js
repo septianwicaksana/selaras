@@ -195,7 +195,7 @@ const routes = [
   { path: '/branches/edit-branch/:id', name: 'Edit Branch', element: EditBranch },
   { path: '/transactions', name: 'Transactions', element: TransactionList },
   {
-    path: '/transactions/create-transaction',
+    path: '/transactions/create-transaction/:id',
     name: 'Create Transaction',
     element: CreateTransaction,
   },

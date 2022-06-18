@@ -39,8 +39,9 @@ export function AuthProvider({ children }) {
 
   const fetchEmployeeRole = async (id) => {
     try {
-      let { data, error } = await supabase.from('employees').select('position').eq('id', id)
+      let { data, error } = await supabase.from('employees').select('id,position').eq('id', id)
       sessionStorage.setItem('role', data[0].position)
+      sessionStorage.setItem('userId', data[0].id)
     } catch (error) {
       alert('no data found')
     }
