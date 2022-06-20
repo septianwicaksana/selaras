@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import {
   CButton,
@@ -13,6 +13,8 @@ import {
   CToast,
   CToastBody,
   CToastClose,
+  CToaster,
+  CToastHeader,
 } from '@coreui/react-pro'
 import { CChartLine } from '@coreui/react-chartjs'
 import { getStyle, hexToRgba } from '@coreui/utils'
@@ -51,7 +53,6 @@ import WidgetsDropdown from '../widgets/WidgetsDropdown'
 import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearCreateAttendanceStatus, createAttendance } from 'src/storages/attendancesSlice'
-import { useForm } from 'react-hook-form'
 import { unwrapResult } from '@reduxjs/toolkit'
 
 function Dashboard() {
@@ -61,6 +62,7 @@ function Dashboard() {
 }
 const StaffDashboard = () => {
   const dispatch = useDispatch()
+  const [toast, addToast] = useState(0)
   const [date, setDate] = React.useState(new Date())
   const userId = sessionStorage.getItem('userId')
   const data = { employee_id: userId, date: new Date() }
@@ -68,41 +70,59 @@ const StaffDashboard = () => {
   const createAttendanceStatus = useSelector((state) => state.attendances.createAttendanceStatus)
   const canSave = createAttendanceStatus === 'idle'
 
+  const toaster = useRef()
+  const successToast = (
+    <CToast title="CoreUI for React.js">
+      <CToastHeader closeButton>
+        <svg
+          className="rounded me-2"
+          width="20"
+          height="20"
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="xMidYMid slice"
+          focusable="false"
+          role="img"
+        >
+          <rect width="100%" height="100%" fill="#008000"></rect>
+        </svg>
+        <strong className="me-auto">Success</strong>
+        <small>7 min ago</small>
+      </CToastHeader>
+      <CToastBody>Berhasil absen, Terima kasih.</CToastBody>
+    </CToast>
+  )
+
+  const failedToast = (
+    <CToast title="CoreUI for React.js">
+      <CToastHeader closeButton>
+        <svg
+          className="rounded me-2"
+          width="20"
+          height="20"
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="xMidYMid slice"
+          focusable="false"
+          role="img"
+        >
+          <rect width="100%" height="100%" fill="#FF0000"></rect>
+        </svg>
+        <strong className="me-auto">Failed</strong>
+        <small>7 min ago</small>
+      </CToastHeader>
+      <CToastBody>Gagal absen, Mohon cek jaringan anda!</CToastBody>
+    </CToast>
+  )
+
   const onSubmit = async (data) => {
     if (canSave)
       try {
         const resultAction = await dispatch(createAttendance(data))
         unwrapResult(resultAction)
-        if (resultAction.payload.status === 201) {
-          return (
-            <CToast
-              autohide={false}
-              visible={true}
-              color="primary"
-              className="text-white align-items-center"
-            >
-              <div className="d-flex">
-                <CToastBody>Hello, world! This is a toast message.</CToastBody>
-                <CToastClose className="me-2 m-auto" white />
-              </div>
-            </CToast>
-          )
+        if (resultAction.payload.error === null) {
+          addToast(successToast)
         }
       } catch (error) {
-        if (error)
-          return (
-            <CToast
-              autohide={false}
-              visible={true}
-              color="primary"
-              className="text-white align-items-center"
-            >
-              <div className="d-flex">
-                <CToastBody>Hello, world! This is a toast message.</CToastBody>
-                <CToastClose className="me-2 m-auto" white />
-              </div>
-            </CToast>
-          )
+        if (error) return addToast(failedToast)
       } finally {
         dispatch(clearCreateAttendanceStatus())
       }
@@ -121,6 +141,7 @@ const StaffDashboard = () => {
 
   return (
     <div>
+      <CToaster ref={toaster} push={toast} placement="top-end" />
       {moment(date).format('H') >= 8 && moment(date).format('H') <= 12 ? (
         <>
           <CCard className="mx-5 mb-5">

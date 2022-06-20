@@ -3,6 +3,7 @@ import { HashRouter, Route, Routes } from 'react-router-dom'
 import './scss/style.scss'
 import { AuthProvider } from './contexts/Auth'
 import { PrivateRoute } from './contexts/PrivateRoute'
+import { CToast, CToastBody, CToastClose } from '@coreui/react-pro'
 
 const loading = (
   <div className="pt-3 text-center">
