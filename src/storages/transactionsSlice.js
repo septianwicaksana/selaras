@@ -20,7 +20,15 @@ const initialState = {
 }
 
 export const fetchTransaction = createAsyncThunk('transactions/fetchTransaction', async () => {
-  const response = await supabase.from('transactions').select()
+  const response = await supabase
+    .from('transactions')
+    .select(
+      `id,amount,paid_amount,
+  remaining_payment,
+  customers ( name ),
+  branchs ( name )`,
+    )
+    .order('created_at', { ascending: false })
   return response
 })
 

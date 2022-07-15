@@ -27,7 +27,7 @@ export function AuthProvider({ children }) {
     return () => {
       listener?.unsubscribe()
     }
-  }, [user])
+  }, [user, loading])
 
   // Will be passed down to Signup, Login and Dashboard components
   const value = {

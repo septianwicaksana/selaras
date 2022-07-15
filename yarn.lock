@@ -7458,6 +7458,11 @@ react-app-polyfill@^3.0.0:
     regenerator-runtime "^0.13.9"
     whatwg-fetch "^3.6.2"
 
+react-csv@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/react-csv/-/react-csv-2.2.2.tgz#5bbf0d72a846412221a14880f294da9d6def9bfb"
+  integrity sha512-RG5hOcZKZFigIGE8LxIEV/OgS1vigFQT4EkaHeKgyuCbUAu9Nbd/1RYq++bJcJJ9VOqO/n9TZRADsXNDR4VEpw==
+
 react-dev-utils@^12.0.0:
   version "12.0.0"
   resolved "https://registry.npmjs.org/react-dev-utils/-/react-dev-utils-12.0.0.tgz"
@@ -7516,6 +7521,13 @@ react-is@^17.0.1, react-is@^17.0.2:
   version "17.0.2"
   resolved "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
+
+react-number-format@^4.9.3:
+  version "4.9.3"
+  resolved "https://registry.yarnpkg.com/react-number-format/-/react-number-format-4.9.3.tgz#338500fe9c61b1ac73c8d6dff4ec97dd13fd2b50"
+  integrity sha512-am1A1xYAbENuKJ+zpM7V+B1oRTSeOHYltqVKExznIVFweBzhLmOBmyb1DfIKjHo90E0bo1p3nzVJ2NgS5xh+sQ==
+  dependencies:
+    prop-types "^15.7.2"
 
 react-redux@^7.2.8:
   version "7.2.8"

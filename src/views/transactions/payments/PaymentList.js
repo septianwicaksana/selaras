@@ -1,10 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { CButton, CCard, CCardBody, CCardHeader, CCol, CRow, CSmartTable } from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
-import { cilPencil, cilPlus, cilSearch } from '@coreui/icons'
+import {
+  cilCheckAlt,
+  cilCheckCircle,
+  cilMoney,
+  cilPencil,
+  cilPlus,
+  cilSearch,
+  cilWarning,
+} from '@coreui/icons'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchPayment, clearPaymentByIdStatus } from 'src/storages/paymentsSlice'
 import { useParams } from 'react-router-dom'
+import moment from 'moment'
+import { fetchHoliday } from 'src/storages/holidaysSlice'
+import HolidayList from 'src/views/holidays/HolidayList'
 
 const PaymentList = () => {
   const { id } = useParams()
@@ -14,6 +25,15 @@ const PaymentList = () => {
   const paymentList = useSelector((state) => state.payments.paymentList)
   const paymentListStatus = useSelector((state) => state.payments.paymentListStatus)
   const paymentByIdStatus = useSelector((state) => state.payments.paymentByIdStatus)
+
+  const holidayList = useSelector((state) => state.holidays.holidayList)
+  const holidayListStatus = useSelector((state) => state.holidays.holidayListStatus)
+
+  useEffect(() => {
+    if (holidayListStatus === 'idle') {
+      dispatch(fetchHoliday())
+    }
+  }, [holidayListStatus, dispatch])
 
   useEffect(() => {
     if (paymentListStatus === 'idle') {
@@ -40,12 +60,6 @@ const PaymentList = () => {
 
   return (
     <CRow>
-      <div className="d-flex  justify-content-end  mb-3">
-        <CButton href="/#/payments/create-payment" color={'primary'} key={1}>
-          <CIcon icon={cilPlus} className="me-2" />
-          New
-        </CButton>
-      </div>
       <CCol>
         <CCard className="mb-5">
           <CCardHeader>
@@ -70,42 +84,42 @@ const PaymentList = () => {
               columnSorter
               pagination
               scopedColumns={{
+                due_date: (item) => {
+                  return <td>{moment(item.due_date).format('DD-MM-YYYY')}</td>
+                },
                 action: (item) => {
                   return (
                     <td>
                       <CRow className=" px-2" xs={{ gutterX: 1, gutterY: 2 }}>
                         <CCol className="align-items-center">
                           <CButton
-                            href={`/#/paymentes/detail-payment/${item.id}`}
+                            href={`/#/transactions/make-payment/${item.id}`}
                             color={'info'}
                             size="sm"
                             key={1}
                           >
-                            <CIcon icon={cilSearch} />
+                            <CIcon icon={cilMoney} />
                           </CButton>
                         </CCol>
-                        <CCol className="align-items-center">
-                          <CButton
-                            href={`/#/paymentes/edit-payment/${item.id}`}
-                            color={'secondary'}
-                            size="sm"
-                            key={2}
-                          >
-                            <CIcon icon={cilPencil} />
-                          </CButton>
-                        </CCol>
-                        {/* <CCol className="align-items-center">
-                          <CButton
-                            onClick={() => {
-                              dispatch(deletePayment(item.id))
-                            }}
-                            color={'danger'}
-                            size="sm"
-                            key={3}
-                          >
-                            <CIcon icon={cilTrash} />
-                          </CButton>
-                        </CCol> */}
+                        {holidayList.find((data) => {
+                          return (
+                            moment(data.date).format('DD-MM-YYYY') ==
+                            moment(item.due_date).format('DD-MM-YYYY')
+                          )
+                        }) ? (
+                          <CCol className="align-items-center">
+                            <CButton
+                              href={`/#/transactions/edit-payment/${item.id}`}
+                              color={'secondary'}
+                              size="sm"
+                              key={2}
+                            >
+                              <CIcon icon={cilPencil} />
+                            </CButton>
+                          </CCol>
+                        ) : (
+                          <></>
+                        )}
                       </CRow>
                     </td>
                   )
@@ -120,11 +134,3 @@ const PaymentList = () => {
 }
 
 export default PaymentList
-
-function EditPayment() {
-  return <></>
-}
-
-function MakePayment() {
-  return <></>
-}

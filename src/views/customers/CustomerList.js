@@ -30,7 +30,8 @@ const CustomerList = () => {
     },
     { key: 'ktp', _style: { width: '20%' } },
     { key: 'phone', _style: { width: '20%' } },
-    { key: 'address', _style: { width: '10%' } },
+    { key: 'pos', _style: { width: '10%' } },
+    { key: 'score', _style: { width: '10%' } },
     { key: 'action', filter: false, sorter: false },
   ]
 

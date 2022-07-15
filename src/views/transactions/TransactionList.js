@@ -34,7 +34,8 @@ import {
 } from 'src/storages/transactionsSlice'
 import { CChartBar, CChartLine } from '@coreui/react-chartjs'
 import { getStyle } from '@coreui/utils'
-
+import moment from 'moment'
+import NumberFormat from 'react-number-format'
 const TransactionList = () => {
   const dispatch = useDispatch()
   const transactionList = useSelector((state) => state.transactions.transactionList)
@@ -55,13 +56,15 @@ const TransactionList = () => {
 
   const columns = [
     {
-      key: 'branch_id',
+      key: 'branchs',
+      label: 'Cabang',
       _style: { width: '10%' },
     },
-    { key: 'customer_id', _style: { width: '10%' } },
-    { key: 'amount', _style: { width: '10%' } },
-    { key: 'paid_amount', _style: { width: '20%' } },
-    { key: 'remaining_payment', _style: { width: '20%' } },
+    { key: 'customers', label: 'Peminjam', _style: { width: '10%' } },
+    { key: 'amount', label: 'Total Pinjaman', _style: { width: '10%' } },
+    { key: 'paid_amount', label: 'Terbayarkan', _style: { width: '20%' } },
+    { key: 'remaining_payment', label: 'Sisa Pembayaran', _style: { width: '20%' } },
+    { key: 'date', label: 'Tanggal Pinjam' },
     { key: 'action', filter: false, sorter: false, _style: { width: '30%' } },
   ]
 
@@ -91,6 +94,51 @@ const TransactionList = () => {
               columnSorter
               pagination
               scopedColumns={{
+                branchs: (item) => {
+                  return <td>{item.branchs.name}</td>
+                },
+                customers: (item) => {
+                  return <td>{item.customers.name}</td>
+                },
+                date: (item) => {
+                  return <td>{moment(item.date).format('DD-MM-YYYY')}</td>
+                },
+                amount: (item) => {
+                  return (
+                    <td>
+                      <NumberFormat
+                        value={item.amount}
+                        displayType={'text'}
+                        thousandSeparator={true}
+                        prefix={'Rp. '}
+                      />
+                    </td>
+                  )
+                },
+                paid_amount: (item) => {
+                  return (
+                    <td>
+                      <NumberFormat
+                        value={item.paid_amount}
+                        displayType={'text'}
+                        thousandSeparator={true}
+                        prefix={'Rp. '}
+                      />
+                    </td>
+                  )
+                },
+                remaining_payment: (item) => {
+                  return (
+                    <td>
+                      <NumberFormat
+                        value={item.remaining_payment}
+                        displayType={'text'}
+                        thousandSeparator={true}
+                        prefix={'Rp. '}
+                      />
+                    </td>
+                  )
+                },
                 action: (item) => {
                   return (
                     <td>

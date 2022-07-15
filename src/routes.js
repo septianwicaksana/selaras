@@ -212,11 +212,11 @@ const routes = [
     element: PaymentList,
   },
   {
-    path: '/transactions/edit-payment',
+    path: '/transactions/edit-payment/:id',
     name: 'Edit Payment',
     element: EditPayment,
   },
-  { path: '/transactions/make-payment', name: 'Make Payment', element: MakePayment },
+  { path: '/transactions/make-payment/:id', name: 'Make Payment', element: MakePayment },
   { path: '/incomes', name: 'Incomes', element: IncomeList },
   { path: '/incomes/create-income', name: 'Create Income', element: CreateIncome },
   { path: '/incomes/detail-income', name: 'Detail Income', element: DetailIncome },

@@ -46,15 +46,6 @@ export const updatePayment = createAsyncThunk('payments/updatePayment', async (u
     .from('payments')
     .update({
       address: updatedData.address, //not-null
-      branch_id: updatedData.branch_id,
-      name: updatedData.name,
-      ktp: updatedData.ktp,
-      npwp: updatedData.npwp,
-      phone: updatedData.phone,
-      pob: updatedData.pob,
-      dob: updatedData.dob,
-      date: updatedData.date,
-      position: updatedData.position,
     })
     .eq('id', updatedData.id)
   if (error) {
@@ -62,6 +53,22 @@ export const updatePayment = createAsyncThunk('payments/updatePayment', async (u
   }
   return data
 })
+
+export const updatePaymentDate = createAsyncThunk(
+  'payments/updatePaymentDate',
+  async (updatedData) => {
+    const { data, error } = await supabase
+      .from('payments')
+      .update({
+        due_date: updatedData.due_date, //not-null
+      })
+      .eq('id', updatedData.id)
+    if (error) {
+      alert(error.message)
+    }
+    return data
+  },
+)
 
 const paymentsSlice = createSlice({
   name: 'payments',
@@ -149,6 +156,17 @@ const paymentsSlice = createSlice({
       state.paymentUpdate = action.payload.data
     },
     [updatePayment.rejected]: (state, action) => {
+      state.paymentUpdateStatus = 'failed'
+      state.paymentUpdateError = action.error.message
+    },
+    [updatePaymentDate.pending]: (state) => {
+      state.paymentUpdateStatus = 'loading'
+    },
+    [updatePaymentDate.fulfilled]: (state, action) => {
+      state.paymentUpdateStatus = 'succeeded'
+      state.paymentUpdate = action.payload.data
+    },
+    [updatePaymentDate.rejected]: (state, action) => {
       state.paymentUpdateStatus = 'failed'
       state.paymentUpdateError = action.error.message
     },

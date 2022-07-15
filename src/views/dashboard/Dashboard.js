@@ -54,11 +54,34 @@ import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearCreateAttendanceStatus, createAttendance } from 'src/storages/attendancesSlice'
 import { unwrapResult } from '@reduxjs/toolkit'
+import { fetchCustomer } from 'src/storages/customersSlice'
+import { fetchEmployeeById } from 'src/storages/employeesSlice'
 
 function Dashboard() {
-  const role = sessionStorage.getItem('role')
-  // return <>{role == 'super_admin' ? <StakeholderDashboard /> : <StaffDashboard />}</>
-  return <>{role == 'super_admin' ? <StaffDashboard /> : <StakeholderDashboard />}</>
+  const dispatch = useDispatch()
+  const [role, setRole] = useState(null)
+  console.log(role)
+  const customerList = useSelector((state) => state.customers.customerList)
+  const customerListStatus = useSelector((state) => state.customers.customerListStatus)
+
+  useEffect(() => {
+    if (customerListStatus === 'idle') {
+      dispatch(fetchCustomer())
+    }
+    setRole(sessionStorage.getItem('role'))
+  }, [customerListStatus])
+
+  return (
+    <>
+      {role === null ? (
+        <></>
+      ) : role === 'super_admin' ? (
+        <StakeholderDashboard />
+      ) : (
+        <StaffDashboard />
+      )}
+    </>
+  )
 }
 const StaffDashboard = () => {
   const dispatch = useDispatch()
@@ -216,13 +239,6 @@ const StakeholderDashboard = () => {
     { title: 'Female', icon: cilUserFemale, value: 43 },
   ]
 
-  const progressGroupExample3 = [
-    { title: 'Organic Search', icon: cibGoogle, percent: 56, value: '191,235' },
-    { title: 'Facebook', icon: cibFacebook, percent: 15, value: '51,223' },
-    { title: 'Twitter', icon: cibTwitter, percent: 11, value: '37,564' },
-    { title: 'LinkedIn', icon: cibLinkedin, percent: 8, value: '27,319' },
-  ]
-
   const tableExample = [
     {
       avatar: { src: avatar1, status: 'success' },
@@ -316,13 +332,12 @@ const StakeholderDashboard = () => {
 
   return (
     <>
-      <WidgetsDropdown />
       <CCard className="mb-4">
         <CCardBody>
           <CRow>
             <CCol sm={5}>
               <h4 id="traffic" className="card-title mb-0">
-                Traffic
+                Transaction
               </h4>
               <div className="small text-medium-emphasis">January - July 2021</div>
             </CCol>
@@ -452,20 +467,20 @@ const StakeholderDashboard = () => {
       <CRow>
         <CCol xs>
           <CCard className="mb-4">
-            <CCardHeader>Traffic {' & '} Sales</CCardHeader>
+            <CCardHeader>Analitic</CCardHeader>
             <CCardBody>
               <CRow>
                 <CCol xs={12} md={6} xl={6}>
                   <CRow>
                     <CCol sm={6}>
                       <div className="border-start border-start-4 border-start-info py-1 px-3">
-                        <div className="text-medium-emphasis small">New Clients</div>
+                        <div className="text-medium-emphasis small">New Customers</div>
                         <div className="fs-5 fw-semibold">9,123</div>
                       </div>
                     </CCol>
                     <CCol sm={6}>
                       <div className="border-start border-start-4 border-start-danger py-1 px-3 mb-3">
-                        <div className="text-medium-emphasis small">Recurring Clients</div>
+                        <div className="text-medium-emphasis small">Loyal Customers</div>
                         <div className="fs-5 fw-semibold">22,643</div>
                       </div>
                     </CCol>
@@ -489,13 +504,13 @@ const StakeholderDashboard = () => {
                   <CRow>
                     <CCol sm={6}>
                       <div className="border-start border-start-4 border-start-warning py-1 px-3 mb-3">
-                        <div className="text-medium-emphasis small">Pageviews</div>
+                        <div className="text-medium-emphasis small">Open</div>
                         <div className="fs-5 fw-semibold">78,623</div>
                       </div>
                     </CCol>
                     <CCol sm={6}>
                       <div className="border-start border-start-4 border-start-success py-1 px-3 mb-3">
-                        <div className="text-medium-emphasis small">Organic</div>
+                        <div className="text-medium-emphasis small">Closed</div>
                         <div className="fs-5 fw-semibold">49,123</div>
                       </div>
                     </CCol>
@@ -517,22 +532,6 @@ const StakeholderDashboard = () => {
                   ))}
 
                   <div className="mb-5"></div>
-
-                  {progressGroupExample3.map((item, index) => (
-                    <div className="progress-group" key={index}>
-                      <div className="progress-group-header">
-                        <CIcon className="me-2" icon={item.icon} size="lg" />
-                        <span>{item.title}</span>
-                        <span className="ms-auto fw-semibold">
-                          {item.value}{' '}
-                          <span className="text-medium-emphasis small">({item.percent}%)</span>
-                        </span>
-                      </div>
-                      <div className="progress-group-bars">
-                        <CProgress thin color="success-gradient" value={item.percent} />
-                      </div>
-                    </div>
-                  ))}
                 </CCol>
               </CRow>
 
