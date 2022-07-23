@@ -56,38 +56,22 @@ import { clearCreateAttendanceStatus, createAttendance } from 'src/storages/atte
 import { unwrapResult } from '@reduxjs/toolkit'
 import { fetchCustomer } from 'src/storages/customersSlice'
 import { fetchEmployeeById } from 'src/storages/employeesSlice'
+import { useAuth } from 'src/contexts/Auth'
 
 function Dashboard() {
   const dispatch = useDispatch()
-  const [role, setRole] = useState(null)
-  console.log(role)
-  const customerList = useSelector((state) => state.customers.customerList)
-  const customerListStatus = useSelector((state) => state.customers.customerListStatus)
-
-  useEffect(() => {
-    if (customerListStatus === 'idle') {
-      dispatch(fetchCustomer())
-    }
-    setRole(sessionStorage.getItem('role'))
-  }, [customerListStatus])
-
+  const { user, userRole } = useAuth()
+  let role = sessionStorage.getItem('role')
   return (
-    <>
-      {role === null ? (
-        <></>
-      ) : role === 'super_admin' ? (
-        <StakeholderDashboard />
-      ) : (
-        <StaffDashboard />
-      )}
-    </>
+    <>{role === null ? <></> : role === 'pengawas' ? <StaffDashboard /> : <StaffDashboard />}</>
   )
 }
 const StaffDashboard = () => {
   const dispatch = useDispatch()
   const [toast, addToast] = useState(0)
   const [date, setDate] = React.useState(new Date())
-  const userId = sessionStorage.getItem('userId')
+  const { user, userRole } = useAuth()
+  const userId = user.id
   const data = { employee_id: userId, date: new Date() }
 
   const createAttendanceStatus = useSelector((state) => state.attendances.createAttendanceStatus)

@@ -28,7 +28,7 @@ import moment from 'moment'
 import NumberFormat from 'react-number-format'
 import { useAuth } from 'src/contexts/Auth'
 
-function CreateTransaction() {
+function CreateSchedule() {
   const dispatch = useDispatch()
   const { user } = useAuth()
   let userId = user.id
@@ -267,4 +267,4 @@ function CreateTransaction() {
   )
 }
 
-export default CreateTransaction
+export default CreateSchedule

@@ -34,8 +34,6 @@ const AttendanceList = () => {
       label: 'Nama',
     },
     { key: 'date', label: 'waktu' },
-    { key: 'location', label: 'Lokasi' },
-    { key: 'action', filter: false, sorter: false },
   ]
 
   return (

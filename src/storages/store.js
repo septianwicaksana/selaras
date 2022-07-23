@@ -12,6 +12,8 @@ import relativesReducer from './relativesSlice'
 import transactionsReducer from './transactionsSlice'
 import customersReducer from './customersSlice'
 import holidaysReducer from './holidaysSlice'
+import historyReducer from './historysSlice'
+import scheduleReducer from './schedulesSlice'
 
 export default configureStore({
   reducer: {
@@ -28,5 +30,7 @@ export default configureStore({
     transactions: transactionsReducer,
     customers: customersReducer,
     holidays: holidaysReducer,
+    history: historyReducer,
+    schedules: scheduleReducer,
   },
 })

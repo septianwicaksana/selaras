@@ -30,7 +30,7 @@ const EmployeeList = () => {
       _style: { width: '40%' },
     },
     { key: 'phone', _style: { width: '20%' } },
-    { key: 'address', _style: { width: '10%' } },
+    { key: 'position', _style: { width: '10%' } },
     // {
     //   key: 'show_details',
     //   label: '',

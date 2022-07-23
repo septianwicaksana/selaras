@@ -15,6 +15,7 @@ import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
 import { Navigate } from 'react-router-dom'
 import { useAuth } from 'src/contexts/Auth'
+import { supabase } from 'src/supabase'
 
 const Register = () => {
   const emailRef = useRef()
@@ -27,7 +28,10 @@ const Register = () => {
     const email = emailRef.current.value
     const password = passwordRef.current.value
 
-    const { error } = await signUp({ email, password })
+    const { user, session, error } = await supabase.auth.signUp({
+      email: email,
+      password: password,
+    })
 
     if (error) {
       alert('error signing in')

@@ -1,6 +1,9 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
 import {
+  cilArrowCircleBottom,
+  cilArrowCircleRight,
+  cilArrowCircleTop,
   cilArrowThickLeft,
   cilArrowThickRight,
   cilBell,
@@ -40,7 +43,12 @@ const _nav = [
     component: CNavTitle,
     name: 'PENGAJUAN',
   },
-
+  {
+    component: CNavItem,
+    name: 'Jadwal Penagihan',
+    to: '/schedules',
+    icon: <CIcon icon={cilCalendarCheck} customClassName="nav-icon" />,
+  },
   {
     component: CNavItem,
     name: 'Transaksi',
@@ -88,15 +96,21 @@ const _nav = [
   },
   {
     component: CNavItem,
+    name: 'Transfer',
+    to: '/transfers',
+    icon: <CIcon icon={cilArrowCircleRight} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
     name: 'Pendapatan',
     to: '/incomes',
-    icon: <CIcon icon={cilArrowThickRight} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilArrowCircleBottom} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Pengeluaran',
     to: '/expenses',
-    icon: <CIcon icon={cilArrowThickLeft} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilArrowCircleTop} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,

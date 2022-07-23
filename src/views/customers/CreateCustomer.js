@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import {
   CButton,
   CCard,
@@ -18,13 +18,17 @@ import {
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { unwrapResult } from '@reduxjs/toolkit'
-import { clearCreateCustomerStatus, createCustomer } from 'src/storages/customersSlice'
+import {
+  clearCreateCustomerStatus,
+  createCustomer,
+  fetchCustomer,
+} from 'src/storages/customersSlice'
 import { useNavigate } from 'react-router-dom'
 
 function CreateCustomer() {
   let navigate = useNavigate()
-
   const dispatch = useDispatch()
+
   const [customerID, setCustomerID] = useState('')
   const createCustomerStatus = useSelector((state) => state.customers.createCustomerStatus)
   const canSave = createCustomerStatus === 'idle'
@@ -134,6 +138,15 @@ function CreateCustomer() {
                   id="addressNasabah"
                   placeholder=""
                   {...register('address')}
+                />
+              </div>
+              <div className="mb-3">
+                <CFormLabel htmlFor="addressNasabah">Lokasi</CFormLabel>
+                <CFormInput
+                  type="text"
+                  id="addressNasabah"
+                  placeholder=""
+                  {...register('location')}
                 />
               </div>
               <div className="mb-3">

@@ -3,42 +3,41 @@ import { CButton, CCard, CCardBody, CCardHeader, CCol, CRow, CSmartTable } from 
 import CIcon from '@coreui/icons-react'
 import { cilArrowThickBottom, cilPencil, cilPlus, cilSearch, cilTrash } from '@coreui/icons'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchCustomer, deleteCustomer, clearCustomerByIdStatus } from 'src/storages/customersSlice'
+import { fetchIncome, deleteIncome, clearIncomeByIdStatus } from 'src/storages/incomesSlice'
 
-const CustomerList = () => {
+const TransferList = () => {
   const dispatch = useDispatch()
-  const customerList = useSelector((state) => state.customers.customerList)
-  const customerListStatus = useSelector((state) => state.customers.customerListStatus)
-  const customerByIdStatus = useSelector((state) => state.customers.customerByIdStatus)
+  const incomeList = useSelector((state) => state.incomes.incomeList)
+  const incomeListStatus = useSelector((state) => state.incomes.incomeListStatus)
+  const incomeByIdStatus = useSelector((state) => state.incomes.incomeByIdStatus)
 
   useEffect(() => {
-    if (customerListStatus === 'idle') {
-      dispatch(fetchCustomer())
+    if (incomeListStatus === 'idle') {
+      dispatch(fetchIncome())
     }
-  }, [customerListStatus, dispatch])
+  }, [incomeListStatus, dispatch])
 
   useEffect(() => {
-    if (customerByIdStatus === 'succeeded') {
-      dispatch(clearCustomerByIdStatus())
+    if (incomeByIdStatus === 'succeeded') {
+      dispatch(clearIncomeByIdStatus())
     }
-  }, [customerByIdStatus, dispatch])
+  }, [incomeByIdStatus, dispatch])
 
   const columns = [
-    { key: 'code', _style: { width: '10%' } },
     {
       key: 'name',
       _style: { width: '40%' },
     },
-
-    { key: 'ktp', _style: { width: '20%' } },
-    { key: 'phone', _style: { width: '20%' } },
+    { key: 'address', _style: { width: '20%' } },
+    { key: 'amount', _style: { width: '10%' } },
+    { key: 'created_at', filter: false, sorter: false },
     { key: 'action', filter: false, sorter: false },
   ]
 
   return (
     <CRow>
       <div className="d-flex  justify-content-end  mb-3">
-        <CButton href="/#/customers/create-customer" color={'primary'} key={1}>
+        <CButton href="/#/incomes/create-income" color={'primary'} key={1}>
           <CIcon icon={cilPlus} className="me-2" />
           New
         </CButton>
@@ -46,7 +45,7 @@ const CustomerList = () => {
       <CCol>
         <CCard className="mb-5">
           <CCardHeader>
-            <strong>List Nasabah</strong>
+            <strong>List Transfer</strong>
           </CCardHeader>
           <CCardBody className="w-100 overflow-auto">
             <CSmartTable
@@ -57,7 +56,7 @@ const CustomerList = () => {
                 hover: true,
               }}
               activePage={3}
-              items={customerList}
+              items={incomeList}
               columns={columns}
               columnFilter
               tableFilter
@@ -71,30 +70,30 @@ const CustomerList = () => {
                   return (
                     <td>
                       <CRow className=" px-2" xs={{ gutterX: 1, gutterY: 2 }}>
-                        {/* <CCol className="align-items-center">
+                        <CCol className="align-items-center">
                           <CButton
-                            href={`/#/customeres/detail-customer/${item.id}`}
+                            href={`/#/incomees/detail-income/${item.id}`}
                             color={'info'}
                             size="sm"
                             key={1}
                           >
                             <CIcon icon={cilSearch} />
                           </CButton>
-                        </CCol> */}
-                        {/* <CCol className="align-items-center">
+                        </CCol>
+                        <CCol className="align-items-center">
                           <CButton
-                            href={`/#/customeres/edit-customer/${item.id}`}
+                            href={`/#/incomees/edit-income/${item.id}`}
                             color={'secondary'}
                             size="sm"
                             key={2}
                           >
                             <CIcon icon={cilPencil} />
                           </CButton>
-                        </CCol> */}
+                        </CCol>
                         <CCol className="align-items-center">
                           <CButton
                             onClick={() => {
-                              dispatch(deleteCustomer(item.id))
+                              dispatch(deleteIncome(item.id))
                             }}
                             color={'danger'}
                             size="sm"
@@ -104,12 +103,7 @@ const CustomerList = () => {
                           </CButton>
                         </CCol>
                         <CCol className="align-items-center">
-                          <CButton
-                            href={`/#/transactions/create-transaction/${item.id}`}
-                            color={'primary'}
-                            size="sm"
-                            key={1}
-                          >
+                          <CButton color={'primary'} size="sm" key={1}>
                             <CIcon icon={cilArrowThickBottom} />
                           </CButton>
                         </CCol>
@@ -126,4 +120,4 @@ const CustomerList = () => {
   )
 }
 
-export default CustomerList
+export default TransferList

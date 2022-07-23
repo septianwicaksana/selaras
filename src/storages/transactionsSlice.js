@@ -23,7 +23,7 @@ export const fetchTransaction = createAsyncThunk('transactions/fetchTransaction'
   const response = await supabase
     .from('transactions')
     .select(
-      `id,amount,paid_amount,
+      `id,code,amount,paid_amount,
   remaining_payment,
   customers ( name ),
   branchs ( name )`,

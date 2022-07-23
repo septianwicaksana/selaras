@@ -149,11 +149,11 @@ function MakePayment() {
                   <CFormInput type="number" value={paymentById.number} readOnly />
                 </div>
                 <div className="mb-3">
-                  <CFormLabel htmlFor="Tenor">Payment Due</CFormLabel>
+                  <CFormLabel htmlFor="Tenor">Dana yg harus diterima</CFormLabel>
                   <CFormInput type="text" value={paymentById.payment_due} readOnly />
                 </div>
                 <div className="mb-3">
-                  <CFormLabel htmlFor="amount">Due Date</CFormLabel>
+                  <CFormLabel htmlFor="amount">Tenggat</CFormLabel>
                   <CFormInput
                     type="text"
                     value={moment(paymentById.due_date).format('DD-MM-YYYY')}
@@ -161,23 +161,10 @@ function MakePayment() {
                   />
                 </div>
                 <div className="mb-3">
-                  <CFormLabel htmlFor="status">Status</CFormLabel>
-                  <CFormInput
-                    type="text"
-                    id="status"
-                    placeholder=""
-                    value={paymentById.status}
-                    readOnly
-                  />
+                  <CFormLabel htmlFor="status">Dana diterima</CFormLabel>
+                  <CFormInput type="text" id="status" placeholder="" />
                 </div>
-                <div className="mb-3">
-                  <CFormLabel htmlFor="namaBranch">Talang Pembayaran ?</CFormLabel>
-                  <CFormSelect aria-label="namaBranch" {...register('branch_id')}>
-                    <option disabled>...</option>
-                    <option value={true}>Iya</option>
-                    <option value={false}>Tidak</option>
-                  </CFormSelect>
-                </div>
+
                 <div className=" d-flex justify-content-between">
                   <CButton href="/#/transactiones" color={'danger'} className="mb-3">
                     Cancel

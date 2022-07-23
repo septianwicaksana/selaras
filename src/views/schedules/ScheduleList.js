@@ -27,41 +27,28 @@ import {
   cilTrash,
 } from '@coreui/icons'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  fetchTransaction,
-  deleteTransaction,
-  clearTransactionByIdStatus,
-} from 'src/storages/transactionsSlice'
 import { CChartBar, CChartLine } from '@coreui/react-chartjs'
 import { getStyle } from '@coreui/utils'
 import moment from 'moment'
 import NumberFormat from 'react-number-format'
-const TransactionList = () => {
+import { deleteSchedule, fetchSchedule } from 'src/storages/schedulesSlice'
+import { Navigate } from 'react-router-dom'
+
+const ScheduleList = () => {
   const dispatch = useDispatch()
-  const transactionList = useSelector((state) => state.transactions.transactionList)
-  const transactionListStatus = useSelector((state) => state.transactions.transactionListStatus)
-  const transactionByIdStatus = useSelector((state) => state.transactions.transactionByIdStatus)
+  const scheduleList = useSelector((state) => state.schedules.scheduleList)
+  const scheduleListStatus = useSelector((state) => state.schedules.scheduleListStatus)
 
   useEffect(() => {
-    if (transactionListStatus === 'idle') {
-      dispatch(fetchTransaction())
+    if (scheduleListStatus === 'idle') {
+      dispatch(fetchSchedule())
     }
-  }, [transactionListStatus, dispatch])
-
-  useEffect(() => {
-    if (transactionByIdStatus === 'succeeded') {
-      dispatch(clearTransactionByIdStatus())
-    }
-  }, [transactionByIdStatus, dispatch])
+  }, [scheduleListStatus, dispatch])
 
   const columns = [
-    { key: 'code', label: 'Kode Nasabah', _style: { width: '10%' } },
-    { key: 'customers', label: 'Peminjam', _style: { width: '10%' } },
-    { key: 'amount', label: 'Total Pinjaman', _style: { width: '10%' } },
-    { key: 'paid_amount', label: 'Terbayarkan', _style: { width: '20%' } },
-    { key: 'remaining_payment', label: 'Sisa Pembayaran', _style: { width: '20%' } },
-    { key: 'date', label: 'Tanggal Pinjam' },
-    { key: 'action', filter: false, sorter: false, _style: { width: '30%' } },
+    { key: 'transaction_id', label: 'Nasabah', _style: { width: '10%' } },
+    { key: 'payment_id', label: 'ID Pembayaran', _style: { width: '10%' } },
+    { key: 'employee_id', label: 'Mantri', _style: { width: '10%' } },
   ]
 
   return (
@@ -69,7 +56,7 @@ const TransactionList = () => {
       <CCol>
         <CCard className="mb-5">
           <CCardHeader>
-            <strong>List Transaksi</strong>
+            <strong>Jadwal Penagihan</strong>
           </CCardHeader>
           <CCardBody className="w-100 overflow-auto">
             <CSmartTable
@@ -80,7 +67,7 @@ const TransactionList = () => {
                 hover: true,
               }}
               activePage={3}
-              items={transactionList}
+              items={scheduleList}
               columns={columns}
               columnFilter
               tableFilter
@@ -90,58 +77,37 @@ const TransactionList = () => {
               columnSorter
               pagination
               scopedColumns={{
-                branchs: (item) => {
-                  return <td>{item.branchs.name}</td>
-                },
-                customers: (item) => {
-                  return <td>{item.customers.name}</td>
-                },
-                date: (item) => {
-                  return <td>{moment(item.date).format('DD-MM-YYYY')}</td>
-                },
-                amount: (item) => {
+                transaction_id: (item) => {
                   return (
                     <td>
-                      <NumberFormat
-                        value={item.amount}
-                        displayType={'text'}
-                        thousandSeparator={true}
-                        prefix={'Rp. '}
-                      />
+                      <a href={`${item.transactions.customer_id.location}`}>
+                        {item.transactions.customer_id.name}
+                      </a>
                     </td>
                   )
                 },
-                paid_amount: (item) => {
+                payment_id: (item) => {
                   return (
                     <td>
-                      <NumberFormat
-                        value={item.paid_amount}
-                        displayType={'text'}
-                        thousandSeparator={true}
-                        prefix={'Rp. '}
-                      />
+                      <a href={`/#/transactions/make-payment/${item.payment_id}`}>
+                        {item.payments.number}
+                      </a>
                     </td>
                   )
                 },
-                remaining_payment: (item) => {
+                employee_id: (item) => {
                   return (
-                    <td>
-                      <NumberFormat
-                        value={item.remaining_payment}
-                        displayType={'text'}
-                        thousandSeparator={true}
-                        prefix={'Rp. '}
-                      />
-                    </td>
+                    <td onClick={() => console.log(item.employees.name)}>{item.employees.name}</td>
                   )
                 },
+
                 action: (item) => {
                   return (
                     <td>
                       <CRow className=" px-2" xs={{ gutterX: 1, gutterY: 2 }}>
                         {/* <CCol className="align-items-center">
                           <CButton
-                            href={`/#/transactiones/detail-transaction/${item.id}`}
+                            href={`/#/schedulees/detail-schedule/${item.id}`}
                             color={'info'}
                             size="sm"
                             key={1}
@@ -151,7 +117,7 @@ const TransactionList = () => {
                         </CCol> */}
                         {/* <CCol className="align-items-center">
                           <CButton
-                            href={`/#/transactiones/edit-transaction/${item.id}`}
+                            href={`/#/schedulees/edit-schedule/${item.id}`}
                             color={'secondary'}
                             size="sm"
                             key={2}
@@ -162,7 +128,7 @@ const TransactionList = () => {
                         <CCol className="align-items-center">
                           <CButton
                             onClick={() => {
-                              dispatch(deleteTransaction(item.id))
+                              dispatch(deleteSchedule(item.id))
                             }}
                             color={'danger'}
                             size="sm"
@@ -173,7 +139,7 @@ const TransactionList = () => {
                         </CCol>
                         <CCol className="align-items-center">
                           <CButton
-                            href={`/#/transactions/payments/${item.id}`}
+                            href={`/#/schedules/payments/${item.id}`}
                             color={'primary'}
                             size="sm"
                             key={1}
@@ -194,4 +160,4 @@ const TransactionList = () => {
   )
 }
 
-export default TransactionList
+export default ScheduleList

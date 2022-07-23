@@ -2,6 +2,9 @@ import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit'
 import { supabase } from '../supabase'
 
 const initialState = {
+  paymentAll: [],
+  paymentAllStatus: 'idle',
+  paymentAllError: null,
   paymentList: [],
   paymentListStatus: 'idle',
   paymentListError: null,
@@ -18,6 +21,13 @@ const initialState = {
   paymentUpdateStatus: 'idle',
   paymentUpdateError: null,
 }
+
+export const fetchAllPayment = createAsyncThunk('payments/fetchAllPayment', async (data) => {
+  console.log(data)
+  const response = await supabase.from('payments').select()
+
+  return response
+})
 
 export const fetchPayment = createAsyncThunk('payments/fetchPayment', async (data) => {
   console.log(data)
@@ -100,6 +110,17 @@ const paymentsSlice = createSlice({
     },
   },
   extraReducers: {
+    [fetchAllPayment.pending]: (state) => {
+      state.paymentAllStatus = 'loading'
+    },
+    [fetchAllPayment.fulfilled]: (state, action) => {
+      state.paymentAllStatus = 'succeeded'
+      state.paymentAll = action.payload.data
+    },
+    [fetchAllPayment.rejected]: (state, action) => {
+      state.paymentAllStatus = 'failed'
+      state.paymentAllError = action.error.message
+    },
     [fetchPayment.pending]: (state) => {
       state.paymentListStatus = 'loading'
     },

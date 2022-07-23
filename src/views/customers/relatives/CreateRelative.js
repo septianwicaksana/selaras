@@ -25,9 +25,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { unwrapResult } from '@reduxjs/toolkit'
 import { clearCreateRelativeStatus, createRelative } from 'src/storages/relativesSlice'
 import { useNavigate, useParams } from 'react-router-dom'
+import { useAuth } from 'src/contexts/Auth'
 
 function CreateRelative() {
   const { id } = useParams()
+  const { user } = useAuth()
   let navigate = useNavigate()
   const dispatch = useDispatch()
   const createRelativeStatus = useSelector((state) => state.relatives.createRelativeStatus)

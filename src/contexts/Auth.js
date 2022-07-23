@@ -6,6 +6,7 @@ const AuthContext = React.createContext()
 // eslint-disable-next-line react/prop-types
 export function AuthProvider({ children }) {
   const [user, setUser] = useState()
+  const [userRole, setUserRole] = useState()
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -27,7 +28,7 @@ export function AuthProvider({ children }) {
     return () => {
       listener?.unsubscribe()
     }
-  }, [user, loading])
+  }, [user])
 
   // Will be passed down to Signup, Login and Dashboard components
   const value = {
@@ -35,13 +36,16 @@ export function AuthProvider({ children }) {
     signIn: (data) => supabase.auth.signIn(data),
     signOut: () => supabase.auth.signOut(),
     user,
+    userRole,
   }
 
   const fetchEmployeeRole = async (id) => {
     try {
       let { data, error } = await supabase.from('employees').select('id,position').eq('id', id)
-      sessionStorage.setItem('role', data[0].position)
-      sessionStorage.setItem('userId', data[0].id)
+      if (data) {
+        setUserRole(data[0])
+        sessionStorage.setItem('role', data[0].position)
+      }
     } catch (error) {
       alert('no data found')
     }
