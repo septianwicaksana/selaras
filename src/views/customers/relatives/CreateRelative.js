@@ -170,7 +170,11 @@ function CreateRelative() {
                   />
                 </div>
                 <div className=" d-flex justify-content-between">
-                  <CButton href={`/#/relatives/${id}`} color={'danger'} className="mb-3">
+                  <CButton
+                    href={`/#/transactions/create-transaction/${id}`}
+                    color={'danger'}
+                    className="mb-3"
+                  >
                     Cancel
                   </CButton>
                   <CButton type="submit" className="mb-3">

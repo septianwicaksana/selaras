@@ -22,8 +22,8 @@ const initialState = {
 export const fetchSchedule = createAsyncThunk('schedules/fetchSchedule', async () => {
   const response = await supabase.from('schedules').select(`transaction_id,payment_id,employee_id,
   transactions(customer_id(name,location)),
-  payments (number),
-  employees ( name )`)
+  payments (id,number),
+  employees (id, name )`)
   return response
 })
 

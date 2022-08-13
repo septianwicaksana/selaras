@@ -22,15 +22,13 @@ const initialState = {
   paymentUpdateError: null,
 }
 
-export const fetchAllPayment = createAsyncThunk('payments/fetchAllPayment', async (data) => {
-  console.log(data)
-  const response = await supabase.from('payments').select()
-
+export const fetchAllPayment = createAsyncThunk('payments/fetchAllPayment', async () => {
+  const response = await supabase.from('payments').select(`id,number,payment_due,due_date,
+  transactions ( id, customers(name,location) )`)
   return response
 })
 
 export const fetchPayment = createAsyncThunk('payments/fetchPayment', async (data) => {
-  console.log(data)
   const response = await supabase.from('payments').select().eq('transaction_id', data)
 
   return response

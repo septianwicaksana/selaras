@@ -33,6 +33,7 @@ import moment from 'moment'
 import NumberFormat from 'react-number-format'
 import { deleteSchedule, fetchSchedule } from 'src/storages/schedulesSlice'
 import { Navigate } from 'react-router-dom'
+import PaymentList from '../transactions/payments/PaymentList'
 
 const ScheduleList = () => {
   const dispatch = useDispatch()
@@ -56,7 +57,7 @@ const ScheduleList = () => {
       <CCol>
         <CCard className="mb-5">
           <CCardHeader>
-            <strong>Jadwal Penagihan</strong>
+            <strong>List Nasabah</strong>
           </CCardHeader>
           <CCardBody className="w-100 overflow-auto">
             <CSmartTable
@@ -80,34 +81,25 @@ const ScheduleList = () => {
                 transaction_id: (item) => {
                   return (
                     <td>
-                      <a href={`${item.transactions.customer_id.location}`}>
+                      <a href={item.transactions.customer_id.location}>
                         {item.transactions.customer_id.name}
                       </a>
                     </td>
                   )
                 },
                 payment_id: (item) => {
-                  return (
-                    <td>
-                      <a href={`/#/transactions/make-payment/${item.payment_id}`}>
-                        {item.payments.number}
-                      </a>
-                    </td>
-                  )
+                  return <td>{item.payments.number}</td>
                 },
                 employee_id: (item) => {
-                  return (
-                    <td onClick={() => console.log(item.employees.name)}>{item.employees.name}</td>
-                  )
+                  return <td>{item.employees.name}</td>
                 },
-
                 action: (item) => {
                   return (
                     <td>
                       <CRow className=" px-2" xs={{ gutterX: 1, gutterY: 2 }}>
                         {/* <CCol className="align-items-center">
                           <CButton
-                            href={`/#/schedulees/detail-schedule/${item.id}`}
+                            href={`/#/customeres/detail-customer/${item.id}`}
                             color={'info'}
                             size="sm"
                             key={1}
@@ -117,7 +109,7 @@ const ScheduleList = () => {
                         </CCol> */}
                         {/* <CCol className="align-items-center">
                           <CButton
-                            href={`/#/schedulees/edit-schedule/${item.id}`}
+                            href={`/#/customeres/edit-customer/${item.id}`}
                             color={'secondary'}
                             size="sm"
                             key={2}
@@ -125,10 +117,10 @@ const ScheduleList = () => {
                             <CIcon icon={cilPencil} />
                           </CButton>
                         </CCol> */}
-                        <CCol className="align-items-center">
+                        {/* <CCol className="align-items-center">
                           <CButton
                             onClick={() => {
-                              dispatch(deleteSchedule(item.id))
+                              dispatch(deleteCustomer(item.id))
                             }}
                             color={'danger'}
                             size="sm"
@@ -136,15 +128,15 @@ const ScheduleList = () => {
                           >
                             <CIcon icon={cilTrash} />
                           </CButton>
-                        </CCol>
+                        </CCol> */}
                         <CCol className="align-items-center">
                           <CButton
-                            href={`/#/schedules/payments/${item.id}`}
+                            href={`/#/transactions/create-transaction/${item.id}`}
                             color={'primary'}
                             size="sm"
                             key={1}
                           >
-                            <CIcon icon={cilHistory} />
+                            <CIcon icon={cilArrowThickBottom} />
                           </CButton>
                         </CCol>
                       </CRow>

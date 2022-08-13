@@ -28,7 +28,6 @@ import { useNavigate } from 'react-router-dom'
 function CreateCustomer() {
   let navigate = useNavigate()
   const dispatch = useDispatch()
-
   const [customerID, setCustomerID] = useState('')
   const createCustomerStatus = useSelector((state) => state.customers.createCustomerStatus)
   const canSave = createCustomerStatus === 'idle'

@@ -6,7 +6,7 @@ const AppFooter = () => {
     <CFooter>
       <div>
         <a target="_blank" rel="noopener noreferrer">
-          Selaras
+          FAJAR
         </a>
         <span className="ms-1">&copy; 2022 </span>
       </div>

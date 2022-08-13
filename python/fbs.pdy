@@ -1,0 +1,42 @@
+version = 0
+sysroot = ""
+sysroots_dir = ""
+parts = []
+
+[Application]
+entry_point = ""
+is_console = false
+is_bundle = true
+name = "FBS"
+qmake_configuration = ""
+script = "main.py"
+syspath = ""
+
+[Application.Package]
+name = "."
+exclude = [ "*.pyc", "*.pyd", "*.pyo", "*.pyx", "*.pxi", "__pycache__", "*-info", "EGG_INFO", "*.so",]
+[[Application.Package.Content]]
+name = ".qt_for_python"
+included = true
+is_directory = true
+[[Application.Package.Content.Content]]
+name = "uic"
+included = true
+is_directory = true
+[[Application.Package.Content.Content.Content]]
+name = "main.py"
+included = true
+is_directory = false
+
+
+
+[[Application.Package.Content]]
+name = "main.py"
+included = true
+is_directory = false
+
+[[Application.Package.Content]]
+name = "main.ui"
+included = true
+is_directory = false
+
