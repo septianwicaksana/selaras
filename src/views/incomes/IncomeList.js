@@ -4,6 +4,8 @@ import CIcon from '@coreui/icons-react'
 import { cilArrowThickBottom, cilPencil, cilPlus, cilSearch, cilTrash } from '@coreui/icons'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchIncome, deleteIncome, clearIncomeByIdStatus } from 'src/storages/incomesSlice'
+import moment from 'moment'
+import NumberFormat from 'react-number-format'
 
 const IncomeList = () => {
   const dispatch = useDispatch()
@@ -25,13 +27,10 @@ const IncomeList = () => {
 
   const columns = [
     {
-      key: 'name',
+      key: 'date',
       _style: { width: '40%' },
     },
-    { key: 'address', _style: { width: '20%' } },
-    { key: 'amount', _style: { width: '10%' } },
-    { key: 'created_at', filter: false, sorter: false },
-    { key: 'action', filter: false, sorter: false },
+    { key: 'amount', _style: { width: '20%' } },
   ]
 
   return (
@@ -45,7 +44,7 @@ const IncomeList = () => {
       <CCol>
         <CCard className="mb-5">
           <CCardHeader>
-            <strong>List Pemasukan</strong>
+            <strong>List Pendapatan</strong>
           </CCardHeader>
           <CCardBody className="w-100 overflow-auto">
             <CSmartTable
@@ -66,6 +65,21 @@ const IncomeList = () => {
               columnSorter
               pagination
               scopedColumns={{
+                date: (item) => {
+                  return <td>{moment(item.date).format('L')}</td>
+                },
+                amount: (item) => {
+                  return (
+                    <td>
+                      <NumberFormat
+                        value={item.amount}
+                        displayType={'text'}
+                        thousandSeparator={true}
+                        prefix={'Rp. '}
+                      />
+                    </td>
+                  )
+                },
                 action: (item) => {
                   return (
                     <td>

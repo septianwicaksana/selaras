@@ -109,12 +109,7 @@ const EditEmployee = () => {
               </div>
               <div className="mb-3">
                 <CFormLabel htmlFor="namaKaryawan">Nama</CFormLabel>
-                <CFormInput
-                  type="text"
-                  id="namaKaryawan"
-                  placeholder="Mitra Fajar Selaras"
-                  {...register('name')}
-                />
+                <CFormInput type="text" id="namaKaryawan" placeholder="" {...register('name')} />
               </div>
               <div className="mb-3">
                 <CFormLabel htmlFor="ktpKaryawan">KTP</CFormLabel>

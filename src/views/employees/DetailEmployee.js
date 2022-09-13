@@ -112,7 +112,7 @@ const DetailEmployee = () => {
                 <CFormInput
                   type="text"
                   id="namaKaryawan"
-                  placeholder="Mitra Fajar Selaras"
+                  placeholder=""
                   {...register('name')}
                   disabled
                 />

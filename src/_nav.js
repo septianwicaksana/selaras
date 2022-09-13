@@ -90,40 +90,40 @@ const _nav = [
     to: '/holidays',
     icon: <CIcon icon={cilCalendar} customClassName="nav-icon" />,
   },
-  // {
-  //   component: CNavTitle,
-  //   name: 'KEUANGAN',
-  // },
+  {
+    component: CNavTitle,
+    name: 'KEUANGAN',
+  },
   // {
   //   component: CNavItem,
   //   name: 'Transfer',
   //   to: '/transfers',
   //   icon: <CIcon icon={cilArrowCircleRight} customClassName="nav-icon" />,
   // },
-  // {
-  //   component: CNavItem,
-  //   name: 'Pendapatan',
-  //   to: '/incomes',
-  //   icon: <CIcon icon={cilArrowCircleBottom} customClassName="nav-icon" />,
-  // },
-  // {
-  //   component: CNavItem,
-  //   name: 'Pengeluaran',
-  //   to: '/expenses',
-  //   icon: <CIcon icon={cilArrowCircleTop} customClassName="nav-icon" />,
-  // },
-  // {
-  //   component: CNavItem,
-  //   name: 'Dompet',
-  //   to: '/wallets',
-  //   icon: <CIcon icon={cilWallet} customClassName="nav-icon" />,
-  // },
-  // {
-  //   component: CNavItem,
-  //   name: 'Accounts',
-  //   to: '/accounts',
-  //   icon: <CIcon icon={cilList} customClassName="nav-icon" />,
-  // },
+  {
+    component: CNavItem,
+    name: 'Pendapatan',
+    to: '/incomes',
+    icon: <CIcon icon={cilArrowCircleBottom} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Pengeluaran',
+    to: '/expenses',
+    icon: <CIcon icon={cilArrowCircleTop} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Dompet',
+    to: '/wallets',
+    icon: <CIcon icon={cilWallet} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Accounts',
+    to: '/accounts',
+    icon: <CIcon icon={cilList} customClassName="nav-icon" />,
+  },
   // {
   //   component: CNavTitle,
   //   name: 'Theme',

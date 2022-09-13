@@ -65,7 +65,7 @@ const HolidayList = () => {
               pagination
               scopedColumns={{
                 date: (item) => {
-                  return <td>{moment(item.date).calendar().toLocaleString()}</td>
+                  return <td>{moment(item.date).format('L')}</td>
                 },
                 action: (item) => {
                   return (

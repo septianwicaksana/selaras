@@ -13,6 +13,8 @@ import {
   CToast,
   CToastBody,
   CToastClose,
+  CToaster,
+  CToastHeader,
 } from '@coreui/react-pro'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
@@ -20,6 +22,8 @@ import { unwrapResult } from '@reduxjs/toolkit'
 import { fetchAccount } from 'src/storages/accountsSlice'
 import { clearWalletUpdateStatus, fetchWallet, updateWallet } from 'src/storages/walletsSlice'
 import { clearCreateIncomeStatus, createIncome } from 'src/storages/incomesSlice'
+import { useRef } from 'react'
+import { useState } from 'react'
 
 function CreateIncome() {
   const dispatch = useDispatch()
@@ -53,42 +57,80 @@ function CreateIncome() {
     formState: { isSubmitSuccessful },
   } = useForm()
 
+  const [toast, addToast] = useState(0)
+  const toaster = useRef()
+  const successToast = (
+    <CToast title="CoreUI for React.js">
+      <CToastHeader closeButton>
+        <svg
+          className="rounded me-2"
+          width="20"
+          height="20"
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="xMidYMid slice"
+          focusable="false"
+          role="img"
+        >
+          <rect width="100%" height="100%" fill="#008000"></rect>
+        </svg>
+        <strong className="me-auto">Success</strong>
+        <small>7 min ago</small>
+      </CToastHeader>
+      <CToastBody>Berhasil menambahkan data</CToastBody>
+    </CToast>
+  )
+
+  const failedToast = (
+    <CToast title="CoreUI for React.js">
+      <CToastHeader closeButton>
+        <svg
+          className="rounded me-2"
+          width="20"
+          height="20"
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="xMidYMid slice"
+          focusable="false"
+          role="img"
+        >
+          <rect width="100%" height="100%" fill="#FF0000"></rect>
+        </svg>
+        <strong className="me-auto">Failed</strong>
+        <small>7 min ago</small>
+      </CToastHeader>
+      <CToastBody>Gagal menambahkan data!</CToastBody>
+    </CToast>
+  )
+
   const onSubmit = async (data) => {
     if (canSave)
       try {
-        console.log(data)
-        let walletData = walletList.find((p) => p.id === data.wallet_id)
-        walletData['amount'] = parseFloat(walletData.amount) + parseFloat(data.amount)
-        console.log(walletData['amount'])
-        // const resultAction = await dispatch(createIncome(data))
-        // const resultAction2 = await dispatch(updateWallet(walletData))
-        // unwrapResult(resultAction)
-        // unwrapResult(resultAction2)
-        // if (resultAction.payload.status === 201 && resultAction2.payload.status === 201) {
-        //   alert('berhasil')
-        // }
+        const resultAction = await dispatch(createIncome(data))
+        unwrapResult(resultAction)
+        if (resultAction.payload.error === null) {
+          addToast(successToast)
+        }
       } catch (error) {
-        alert('gagal')
+        if (error) return addToast(failedToast)
       } finally {
         dispatch(clearCreateIncomeStatus())
-        dispatch(clearWalletUpdateStatus())
       }
   }
 
   React.useEffect(() => {
     if (isSubmitSuccessful) {
       reset({
-        wallet_id: '',
         account_id: '',
-        note: '',
-        date: '',
+        wallet_id: '',
         amount: '',
+        date: '',
+        note: '',
       })
     }
   }, [formState, isSubmitSuccessful, reset])
 
   return (
     <CRow>
+      <CToaster ref={toaster} push={toast} placement="top-end" />
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>

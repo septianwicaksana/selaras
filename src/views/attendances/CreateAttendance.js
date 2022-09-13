@@ -95,7 +95,7 @@ function CreateAttendance() {
                 <CFormInput
                   type="text"
                   id="employeeID"
-                  placeholder="Mitra Fajar Selaras"
+                  placeholder=""
                   {...register('employee_id')}
                 />
               </div>
