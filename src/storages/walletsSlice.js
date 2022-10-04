@@ -44,7 +44,7 @@ export const updateWallet = createAsyncThunk('wallets/updateWallet', async (upda
     .from('wallets')
     .update({
       name: updatedData.name, //not-null
-      amount: updatedData.amount,
+      total: updatedData.total,
       description: updatedData.description,
     })
     .eq('id', updatedData.id)

@@ -94,7 +94,7 @@ function TransactionTable() {
   }, [transactionByIdStatus, dispatch])
 
   const columns = [
-    { key: 'code', label: 'Kode Nasabah', _style: { width: '10%' } },
+    { key: 'ktp', label: 'Kode Nasabah', _style: { width: '10%' } },
     { key: 'customers', label: 'Peminjam', _style: { width: '10%' } },
     { key: 'amount', label: 'Total Pinjaman', _style: { width: '10%' } },
     { key: 'paid_amount', label: 'Terbayarkan', _style: { width: '20%' } },

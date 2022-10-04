@@ -128,7 +128,7 @@ function CreateExpense() {
       reset({
         account_id: '',
         wallet_id: '',
-        amount: '',
+        total: '',
         date: '',
         note: '',
       })
@@ -192,8 +192,8 @@ function CreateExpense() {
                 <CFormInput type="date" id="date" placeholder="" {...register('date')} />
               </div>
               <div className="mb-3">
-                <CFormLabel htmlFor="amount">Amount</CFormLabel>
-                <CFormInput type="text" id="amount" placeholder="" {...register('amount')} />
+                <CFormLabel htmlFor="total">Amount</CFormLabel>
+                <CFormInput type="text" id="total" placeholder="" {...register('total')} />
               </div>
               <div className=" d-flex justify-content-between">
                 <CButton href="/#/branches" color={'danger'} className="mb-3">

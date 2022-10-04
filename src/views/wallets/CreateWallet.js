@@ -119,7 +119,7 @@ function CreateWallet() {
     if (isSubmitSuccessful) {
       reset({
         name: '',
-        amount: '',
+        total: '',
         description: '',
       })
     }
@@ -180,7 +180,7 @@ function CreateWallet() {
               )}
               <div className="mb-3">
                 <CFormLabel htmlFor="amount">Amount</CFormLabel>
-                <CFormInput type="text" id="amount" placeholder="" {...register('amount')} />
+                <CFormInput type="text" id="total" placeholder="" {...register('total')} />
               </div>
 
               <div className="mb-3">

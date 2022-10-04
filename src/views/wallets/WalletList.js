@@ -27,7 +27,7 @@ const WalletList = () => {
     {
       key: 'name',
     },
-    { key: 'amount' },
+    { key: 'total' },
     { key: 'action', filter: false, sorter: false },
   ]
 
