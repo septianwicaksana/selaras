@@ -75,7 +75,6 @@ function TransactionTable() {
   const transactionList = useSelector((state) => state.transactions.transactionList)
   const transactionListStatus = useSelector((state) => state.transactions.transactionListStatus)
   const transactionByIdStatus = useSelector((state) => state.transactions.transactionByIdStatus)
-
   const paymentAll = useSelector((state) => state.transactions.paymentAll)
   const paymentAllStatus = useSelector((state) => state.transactions.paymentAllStatus)
 
@@ -95,7 +94,7 @@ function TransactionTable() {
 
   const columns = [
     { key: 'ktp', label: 'Kode Nasabah', _style: { width: '10%' } },
-    { key: 'customers', label: 'Peminjam', _style: { width: '10%' } },
+    { key: 'name', label: 'Peminjam', _style: { width: '10%' } },
     { key: 'amount', label: 'Total Pinjaman', _style: { width: '10%' } },
     { key: 'paid_amount', label: 'Terbayarkan', _style: { width: '20%' } },
     { key: 'remaining_payment', label: 'Sisa Pembayaran', _style: { width: '20%' } },
@@ -130,9 +129,6 @@ function TransactionTable() {
               scopedColumns={{
                 branchs: (item) => {
                   return <td>{item.branchs.name}</td>
-                },
-                customers: (item) => {
-                  return <td>{item.customers.name}</td>
                 },
                 date: (item) => {
                   return <td>{moment(item.date).format('DD-MM-YYYY')}</td>

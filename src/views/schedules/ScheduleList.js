@@ -48,7 +48,9 @@ const ScheduleList = () => {
 
   const columns = [
     { key: 'transaction_id', label: 'Nasabah', _style: { width: '10%' } },
-    { key: 'payment_id', label: 'ID Pembayaran', _style: { width: '10%' } },
+    { key: 'number', label: 'Pembayaran Ke-', _style: { width: '10%' } },
+    { key: 'payment_due', label: 'Total Tagihan', _style: { width: '10%' } },
+    { key: 'due_date', label: 'Jatuh Tempo', _style: { width: '10%' } },
     { key: 'employee_id', label: 'Mantri', _style: { width: '10%' } },
   ]
 
@@ -87,8 +89,8 @@ const ScheduleList = () => {
                     </td>
                   )
                 },
-                payment_id: (item) => {
-                  return <td>{item.payments.number}</td>
+                due_date: (item) => {
+                  return <td>{moment(item.due_date).format('DD-MM-YYYY')}</td>
                 },
                 employee_id: (item) => {
                   return <td>{item.employees.name}</td>

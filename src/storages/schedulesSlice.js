@@ -21,8 +21,8 @@ const initialState = {
 
 export const fetchSchedule = createAsyncThunk('schedules/fetchSchedule', async () => {
   const response = await supabase.from('schedules').select(`transaction_id,payment_id,employee_id,
-  transactions(customer_id(name,location)),
-  payments (id,number),
+  transactions(customer_id(name,location,ktp)),
+  payments (id,number,payment_due,due_date),
   employees (id, name )`)
   return response
 })
@@ -99,7 +99,14 @@ const schedulesSlice = createSlice({
     },
     [fetchSchedule.fulfilled]: (state, action) => {
       state.scheduleListStatus = 'succeeded'
-      state.scheduleList = action.payload.data
+      if (action.payload.data.length > 0) {
+        for (var i = 0; i < action.payload.data.length; i++) {
+          state.scheduleList[i] = {
+            ...action.payload.data[i],
+            ...action.payload.data[i].payments,
+          }
+        }
+      }
     },
     [fetchSchedule.rejected]: (state, action) => {
       state.scheduleListStatus = 'failed'

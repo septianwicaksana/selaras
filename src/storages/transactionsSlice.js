@@ -23,9 +23,9 @@ export const fetchTransaction = createAsyncThunk('transactions/fetchTransaction'
   const response = await supabase
     .from('transactions')
     .select(
-      `id,code,amount,paid_amount,
+      `id,amount,paid_amount,
   remaining_payment,
-  customers ( name ),
+  customers ( name, ktp ),
   branchs ( name )`,
     )
     .order('created_at', { ascending: false })
@@ -113,7 +113,14 @@ const transactionsSlice = createSlice({
     },
     [fetchTransaction.fulfilled]: (state, action) => {
       state.transactionListStatus = 'succeeded'
-      state.transactionList = action.payload.data
+      if (action.payload.data.length > 0) {
+        for (var i = 0; i < action.payload.data.length; i++) {
+          state.transactionList[i] = {
+            ...action.payload.data[i],
+            ...action.payload.data[i].customers,
+          }
+        }
+      }
     },
     [fetchTransaction.rejected]: (state, action) => {
       state.transactionListStatus = 'failed'

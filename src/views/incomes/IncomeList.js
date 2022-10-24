@@ -30,7 +30,8 @@ const IncomeList = () => {
       key: 'date',
       _style: { width: '40%' },
     },
-    { key: 'amount', _style: { width: '20%' } },
+    { key: 'note', _style: { width: '20%' } },
+    { key: 'total', _style: { width: '20%' } },
   ]
 
   return (
@@ -68,11 +69,11 @@ const IncomeList = () => {
                 date: (item) => {
                   return <td>{moment(item.date).format('L')}</td>
                 },
-                amount: (item) => {
+                total: (item) => {
                   return (
                     <td>
                       <NumberFormat
-                        value={item.amount}
+                        value={parseFloat(item.total)}
                         displayType={'text'}
                         thousandSeparator={true}
                         prefix={'Rp. '}

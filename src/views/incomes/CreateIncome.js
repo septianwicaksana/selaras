@@ -24,6 +24,7 @@ import { clearWalletUpdateStatus, fetchWallet, updateWallet } from 'src/storages
 import { clearCreateIncomeStatus, createIncome } from 'src/storages/incomesSlice'
 import { useRef } from 'react'
 import { useState } from 'react'
+import NumberFormat from 'react-number-format'
 
 function CreateIncome() {
   const dispatch = useDispatch()
@@ -55,7 +56,10 @@ function CreateIncome() {
     reset,
     formState,
     formState: { isSubmitSuccessful },
+    watch,
   } = useForm()
+
+  const watchTotal = watch(['total'])
 
   const [toast, addToast] = useState(0)
   const toaster = useRef()
@@ -184,10 +188,31 @@ function CreateIncome() {
                 <CFormLabel htmlFor="date">Date</CFormLabel>
                 <CFormInput type="date" id="date" placeholder="" {...register('date')} />
               </div>
-              <div className="mb-3">
-                <CFormLabel htmlFor="total">Total</CFormLabel>
-                <CFormInput type="text" id="total" placeholder="" {...register('total')} />
-              </div>
+
+              <CRow>
+                <CCol>
+                  <div className="mb-3">
+                    <CFormLabel htmlFor="total">Total</CFormLabel>
+                    <CFormInput type="text" id="total" placeholder="" {...register('total')} />
+                  </div>
+                </CCol>
+                <CCol>
+                  <div className="mb-3">
+                    <CFormLabel htmlFor="totalR">Total in Rp</CFormLabel>
+                    <CFormInput
+                      type="text"
+                      id="totalR"
+                      placeholder=""
+                      value={new Intl.NumberFormat('id-ID', {
+                        style: 'currency',
+                        currency: 'IDR',
+                      }).format(watchTotal)}
+                      disabled
+                      readOnly
+                    />
+                  </div>
+                </CCol>
+              </CRow>
               <div className=" d-flex justify-content-between">
                 <CButton href="/#/branches" color={'danger'} className="mb-3">
                   Cancel
