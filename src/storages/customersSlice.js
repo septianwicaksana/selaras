@@ -43,16 +43,16 @@ export const updateCustomer = createAsyncThunk('customers/updateCustomer', async
   const { data, error } = await supabase
     .from('customers')
     .update({
-      address: updatedData.address, //not-null
-      branch_id: updatedData.branch_id,
-      name: updatedData.name,
-      ktp: updatedData.ktp,
-      npwp: updatedData.npwp,
+      name: updatedData.name, //null
+      ktp: updatedData.ktp, //not-null
       phone: updatedData.phone,
+      address: updatedData.address,
+      location: updatedData.location,
+      pos: updatedData.pos,
       pob: updatedData.pob,
       dob: updatedData.dob,
-      date: updatedData.date,
-      position: updatedData.position,
+      job: updatedData.job,
+      rent: updatedData.rent,
     })
     .eq('id', updatedData.id)
   if (error) {

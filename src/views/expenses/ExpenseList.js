@@ -30,8 +30,10 @@ const ExpenseList = () => {
       key: 'date',
       _style: { width: '40%' },
     },
+    { key: 'name', _style: { width: '20%' } },
     { key: 'note', _style: { width: '20%' } },
     { key: 'total', _style: { width: '20%' } },
+    { key: 'action', filter: false, sorter: false, _style: { width: '30%' } },
   ]
 
   return (
@@ -81,51 +83,51 @@ const ExpenseList = () => {
                     </td>
                   )
                 },
-                // action: (item) => {
-                //   return (
-                //     <td>
-                //       <CRow className=" px-2" xs={{ gutterX: 1, gutterY: 2 }}>
-                //         <CCol className="align-items-center">
-                //           <CButton
-                //             href={`/#/expensees/detail-expense/${item.id}`}
-                //             color={'info'}
-                //             size="sm"
-                //             key={1}
-                //           >
-                //             <CIcon icon={cilSearch} />
-                //           </CButton>
-                //         </CCol>
-                //         <CCol className="align-items-center">
-                //           <CButton
-                //             href={`/#/expensees/edit-expense/${item.id}`}
-                //             color={'secondary'}
-                //             size="sm"
-                //             key={2}
-                //           >
-                //             <CIcon icon={cilPencil} />
-                //           </CButton>
-                //         </CCol>
-                //         <CCol className="align-items-center">
-                //           <CButton
-                //             onClick={() => {
-                //               dispatch(deleteExpense(item.id))
-                //             }}
-                //             color={'danger'}
-                //             size="sm"
-                //             key={3}
-                //           >
-                //             <CIcon icon={cilTrash} />
-                //           </CButton>
-                //         </CCol>
-                //         <CCol className="align-items-center">
-                //           <CButton color={'primary'} size="sm" key={1}>
-                //             <CIcon icon={cilArrowThickBottom} />
-                //           </CButton>
-                //         </CCol>
-                //       </CRow>
-                //     </td>
-                //   )
-                // },
+                action: (item) => {
+                  return (
+                    <td>
+                      <CRow className=" px-2" xs={{ gutterX: 1, gutterY: 2 }}>
+                        {/* <CCol className="align-items-center">
+                          <CButton
+                            href={`/#/expensees/detail-expense/${item.id}`}
+                            color={'info'}
+                            size="sm"
+                            key={1}
+                          >
+                            <CIcon icon={cilSearch} />
+                          </CButton>
+                        </CCol> */}
+                        {/* <CCol className="align-items-center">
+                          <CButton
+                            href={`/#/expensees/edit-expense/${item.id}`}
+                            color={'secondary'}
+                            size="sm"
+                            key={2}
+                          >
+                            <CIcon icon={cilPencil} />
+                          </CButton>
+                        </CCol> */}
+                        <CCol className="align-items-center">
+                          <CButton
+                            onClick={() => {
+                              dispatch(deleteExpense(item.id))
+                            }}
+                            color={'danger'}
+                            size="sm"
+                            key={3}
+                          >
+                            <CIcon icon={cilTrash} />
+                          </CButton>
+                        </CCol>
+                        {/* <CCol className="align-items-center">
+                          <CButton color={'primary'} size="sm" key={1}>
+                            <CIcon icon={cilArrowThickBottom} />
+                          </CButton>
+                        </CCol> */}
+                      </CRow>
+                    </td>
+                  )
+                },
               }}
             />
           </CCardBody>

@@ -20,7 +20,10 @@ const initialState = {
 }
 
 export const fetchIncome = createAsyncThunk('incomes/fetchIncome', async () => {
-  const response = await supabase.from('incomes').select()
+  const response = await supabase
+    .from('incomes')
+    .select(`*,accounts(category),wallets(name)`)
+    .order('date', { ascending: false })
   return response
 })
 
@@ -90,7 +93,15 @@ const incomesSlice = createSlice({
     },
     [fetchIncome.fulfilled]: (state, action) => {
       state.incomeListStatus = 'succeeded'
-      state.incomeList = action.payload.data
+      if (action.payload.data.length > 0) {
+        for (var i = 0; i < action.payload.data.length; i++) {
+          state.incomeList[i] = {
+            ...action.payload.data[i],
+            ...action.payload.data[i].accounts,
+            ...action.payload.data[i].wallets,
+          }
+        }
+      }
     },
     [fetchIncome.rejected]: (state, action) => {
       state.incomeListStatus = 'failed'

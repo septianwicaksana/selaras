@@ -122,10 +122,7 @@ function CreateCustomer() {
                 <CFormLabel htmlFor="ktpNasabah">KTP</CFormLabel>
                 <CFormInput type="text" id="ktpNasabah" placeholder="" {...register('ktp')} />
               </div>
-              <div className="mb-3">
-                <CFormLabel htmlFor="npwpNasabah">NPWP</CFormLabel>
-                <CFormInput type="text" id="npwpNasabah" placeholder="" {...register('npwp')} />
-              </div>
+
               <div className="mb-3">
                 <CFormLabel htmlFor="phoneNasabah">Nomor Hp</CFormLabel>
                 <CFormInput type="text" id="phoneNasabah" placeholder="" {...register('phone')} />
@@ -161,17 +158,12 @@ function CreateCustomer() {
                 <CFormInput type="date" id="dobNasabah" placeholder="" {...register('dob')} />
               </div>
               <div className="mb-3">
-                <CFormLabel htmlFor="bankName">Nama Pemegang Rekening</CFormLabel>
-                <CFormInput type="text" id="bankName" placeholder="" {...register('bank_name')} />
+                <CFormLabel htmlFor="job">Pekerjaan</CFormLabel>
+                <CFormInput type="text" id="job" placeholder="" {...register('job')} />
               </div>
               <div className="mb-3">
-                <CFormLabel htmlFor="dobNasabah">Nomor Rekening</CFormLabel>
-                <CFormInput
-                  type="text"
-                  id="dobNasabah"
-                  placeholder=""
-                  {...register('bank_account')}
-                />
+                <CFormLabel htmlFor="rent">Status Tempat Tinggal</CFormLabel>
+                <CFormInput type="text" id="rent" placeholder="" {...register('rent')} />
               </div>
               <div className=" d-flex justify-content-between">
                 <CButton href="/#/customers" color={'danger'} className="mb-3">

@@ -9,7 +9,7 @@ import Page404 from 'src/views/pages/page404/Page404'
 import { useAuth } from 'src/contexts/Auth'
 
 const AppContent = () => {
-  const role = sessionStorage.getItem('role')
+  const role = 'pengawas'
   console.log(role)
   return (
     <CContainer lg>

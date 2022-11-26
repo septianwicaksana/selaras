@@ -138,7 +138,7 @@ const routes = [
       { path: '/customers', name: 'Customers', element: CustomerList },
       { path: '/customers/create-customer', name: 'Create Customer', element: CreateCustomer },
       { path: '/customers/detail-customer', name: 'Detail Customer', element: DetailCustomer },
-      { path: '/customers/edit-customer', name: 'Edit Customer', element: EditCustomer },
+      { path: '/customers/edit-customer/:id', name: 'Edit Customer', element: EditCustomer },
       { path: '/employees', name: 'Employees', element: EmployeeList },
       { path: '/employees/create-employee', name: 'Create Employee', element: CreateEmployee },
       { path: '/employees/detail-employee/:id', name: 'Detail Employee', element: DetailEmployee },

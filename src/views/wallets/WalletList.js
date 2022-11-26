@@ -4,6 +4,7 @@ import CIcon from '@coreui/icons-react'
 import { cilPencil, cilPlus, cilSearch, cilTrash } from '@coreui/icons'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchWallet, deleteWallet, clearWalletByIdStatus } from 'src/storages/walletsSlice'
+import NumberFormat from 'react-number-format'
 
 const WalletList = () => {
   const dispatch = useDispatch()
@@ -63,6 +64,18 @@ const WalletList = () => {
               columnSorter
               pagination
               scopedColumns={{
+                total: (item) => {
+                  return (
+                    <td>
+                      <NumberFormat
+                        value={parseFloat(item.total)}
+                        displayType={'text'}
+                        thousandSeparator={true}
+                        prefix={'Rp. '}
+                      />
+                    </td>
+                  )
+                },
                 action: (item) => {
                   return (
                     <td>

@@ -193,7 +193,7 @@ function TransactionTable() {
                             <CIcon icon={cilPencil} />
                           </CButton>
                         </CCol> */}
-                        <CCol className="align-items-center">
+                        {/* <CCol className="align-items-center">
                           <CButton
                             onClick={() => {
                               dispatch(deleteTransaction(item.id))
@@ -204,7 +204,7 @@ function TransactionTable() {
                           >
                             <CIcon icon={cilTrash} />
                           </CButton>
-                        </CCol>
+                        </CCol> */}
                         <CCol className="align-items-center">
                           <CButton
                             href={`/#/transactions/payments/${item.id}`}

@@ -30,8 +30,11 @@ const IncomeList = () => {
       key: 'date',
       _style: { width: '40%' },
     },
+    { key: 'name', _style: { width: '20%' } },
     { key: 'note', _style: { width: '20%' } },
     { key: 'total', _style: { width: '20%' } },
+
+    { key: 'action', filter: false, sorter: false, _style: { width: '30%' } },
   ]
 
   return (
@@ -69,6 +72,7 @@ const IncomeList = () => {
                 date: (item) => {
                   return <td>{moment(item.date).format('L')}</td>
                 },
+
                 total: (item) => {
                   return (
                     <td>
@@ -87,26 +91,6 @@ const IncomeList = () => {
                       <CRow className=" px-2" xs={{ gutterX: 1, gutterY: 2 }}>
                         <CCol className="align-items-center">
                           <CButton
-                            href={`/#/incomees/detail-income/${item.id}`}
-                            color={'info'}
-                            size="sm"
-                            key={1}
-                          >
-                            <CIcon icon={cilSearch} />
-                          </CButton>
-                        </CCol>
-                        <CCol className="align-items-center">
-                          <CButton
-                            href={`/#/incomees/edit-income/${item.id}`}
-                            color={'secondary'}
-                            size="sm"
-                            key={2}
-                          >
-                            <CIcon icon={cilPencil} />
-                          </CButton>
-                        </CCol>
-                        <CCol className="align-items-center">
-                          <CButton
                             onClick={() => {
                               dispatch(deleteIncome(item.id))
                             }}
@@ -115,11 +99,6 @@ const IncomeList = () => {
                             key={3}
                           >
                             <CIcon icon={cilTrash} />
-                          </CButton>
-                        </CCol>
-                        <CCol className="align-items-center">
-                          <CButton color={'primary'} size="sm" key={1}>
-                            <CIcon icon={cilArrowThickBottom} />
                           </CButton>
                         </CCol>
                       </CRow>

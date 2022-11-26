@@ -187,17 +187,7 @@ function CreateTransaction() {
                   {...register('customer_id')}
                 />
               </div>
-              <div className="mb-3">
-                <CFormLabel htmlFor="code">Kode</CFormLabel>
-                <CFormInput
-                  value={customerById.code}
-                  type="number"
-                  id="code"
-                  placeholder=""
-                  readOnly
-                  {...register('code')}
-                />
-              </div>
+
               <div className="mb-3">
                 <CFormLabel htmlFor="namaBranch">Cabang</CFormLabel>
                 <CFormSelect aria-label="namaBranch" {...register('branch_id')}>

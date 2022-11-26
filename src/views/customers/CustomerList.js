@@ -24,7 +24,6 @@ const CustomerList = () => {
   }, [customerByIdStatus, dispatch])
 
   const columns = [
-    { key: 'code', _style: { width: '10%' } },
     {
       key: 'name',
       _style: { width: '40%' },
@@ -81,17 +80,17 @@ const CustomerList = () => {
                             <CIcon icon={cilSearch} />
                           </CButton>
                         </CCol> */}
-                        {/* <CCol className="align-items-center">
+                        <CCol className="align-items-center">
                           <CButton
-                            href={`/#/customeres/edit-customer/${item.id}`}
+                            href={`/#/customers/edit-customer/${item.id}`}
                             color={'secondary'}
                             size="sm"
                             key={2}
                           >
                             <CIcon icon={cilPencil} />
                           </CButton>
-                        </CCol> */}
-                        <CCol className="align-items-center">
+                        </CCol>
+                        {/* <CCol className="align-items-center">
                           <CButton
                             onClick={() => {
                               dispatch(deleteCustomer(item.id))
@@ -102,7 +101,7 @@ const CustomerList = () => {
                           >
                             <CIcon icon={cilTrash} />
                           </CButton>
-                        </CCol>
+                        </CCol> */}
                         <CCol className="align-items-center">
                           <CButton
                             href={`/#/transactions/create-transaction/${item.id}`}
